@@ -163,6 +163,14 @@ When the user sends the message **"Done"**, read their completed `Solution.java`
 src/main/java/mx/jovannypcg/base/p<NN>_<name>/REVIEW.md
 ```
 
+Before writing `REVIEW.md`, run the tests for the current problem:
+
+```bash
+./mvnw test -Dtest="SolutionTest" -pl .
+```
+
+If any tests fail, report which ones and why, and ask the user to fix them. Do not write `REVIEW.md` until all tests pass.
+
 Open `REVIEW.md` with a summary table in this exact format:
 
 ```markdown
@@ -183,18 +191,21 @@ Evaluate the user's implementation honestly and clearly:
 - Code quality: clarity, naming, structure.
 - Time complexity with explanation.
 - Space complexity with explanation.
+- **Algorithm trace**: include a trace of the user's solution on one representative example. Choose the format from the Algorithm Traces section below based on the algorithm type.
 
 ### 2. Optimal Approach
 Describe the optimal solution (even if the user already found it):
 - Explain the approach in plain language.
 - Provide time and space complexity with explanation.
 - Include a clean Java code example.
+- **Algorithm trace**: a trace on one representative example (see Algorithm Traces section).
 
 ### 3. Alternative Approaches
 List every other meaningful approach (brute force, suboptimal, or lateral), each with:
 - A short description of the approach.
 - Time and space complexity with explanation.
 - A note on when it might be acceptable (e.g., small input, interview time pressure).
+- **Algorithm trace**: a trace on one representative example (see Algorithm Traces section).
 
 ---
 
@@ -205,6 +216,14 @@ When the user sends the message **"Give up"**, generate a solution file at:
 ```
 src/main/java/mx/jovannypcg/base/p<NN>_<name>/SOLUTION.md
 ```
+
+After writing `SOLUTION.md`, implement the optimal solution in `Solution.java` and run the tests to confirm they pass:
+
+```bash
+./mvnw test -Dtest="SolutionTest" -pl .
+```
+
+If any tests fail, fix the implementation before finishing. Report the test results to the user.
 
 Open `SOLUTION.md` with a summary table in this exact format:
 
@@ -223,8 +242,59 @@ Arrays & Hashing, Two Pointers, Sliding Window, Stack, Binary Search, Linked Lis
 - Time complexity with a one-line explanation.
 - Space complexity with a one-line explanation.
 - A clean Java code example.
+- **Algorithm trace**: a trace of the approach on one representative example. Choose the format from the Algorithm Traces section below based on the algorithm type.
 
 The goal is that the user reads `SOLUTION.md` and immediately understands how to solve the problem. Keep explanations tight.
+
+---
+
+## Algorithm Traces
+
+Every `REVIEW.md` and `SOLUTION.md` must include an algorithm trace for each approach, run against one representative example from `README.md`. Choose the format based on the algorithm type:
+
+| Algorithm type | Trace format |
+|---|---|
+| Iterative loop, DP table filling | **Step table** — one row per iteration, columns = key variables |
+| Two pointers, sliding window | **Annotated array** — show the array with pointer/window positions per step |
+| Recursion, backtracking | **Call stack table** — depth, call arguments, return value |
+| Tree / graph traversal | **Mermaid graph** — nodes visited in order, edges labelled with step number |
+| Binary search | **Step table** + annotated array showing `lo`, `mid`, `hi` per iteration |
+| Divide and conquer | **Mermaid sequence diagram** — recursive calls as a timeline |
+
+### Step table example (Two Sum with hash map)
+Input: `nums = [2, 7, 11, 15]`, `target = 9`
+
+| i | nums[i] | complement | map before lookup | found? | map after |
+|---|---------|------------|-------------------|--------|-----------|
+| 0 | 2 | 7 | {} | No | {2→0} |
+| 1 | 7 | 2 | {2→0} | **Yes** | — |
+→ return `[0, 1]`
+
+### Annotated array example (Two Pointers)
+Input: `nums = [1, 2, 3, 4, 6]`, `target = 6`
+```
+Step 1: [1, 2, 3, 4, 6]   sum=7 > 6 → move right left
+         L           R
+Step 2: [1, 2, 3, 4, 6]   sum=5 < 6 → move left right
+         L        R
+Step 3: [1, 2, 3, 4, 6]   sum=6 ✓
+            L     R
+→ return [2, 4] (1-indexed)
+```
+
+### Call stack table example (Fibonacci / recursion)
+Input: `n = 4`
+
+| Depth | Call | Returns |
+|---|---|---|
+| 0 | fib(4) | fib(3) + fib(2) |
+| 1 | fib(3) | fib(2) + fib(1) |
+| 2 | fib(2) | fib(1) + fib(0) = 1 |
+| 2 | fib(1) | 1 |
+| 1 | fib(2) | 1 |
+→ fib(4) = 3
+
+Annotated arrays and call stack tables must use plain Markdown (code blocks or tables). Tree/graph and sequence diagrams must use Mermaid. Never use ASCII art.
 
 ---
 
