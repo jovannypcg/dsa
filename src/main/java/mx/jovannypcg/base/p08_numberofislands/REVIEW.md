@@ -30,19 +30,46 @@ Your first instinct was a recursive DFS "island sinking" strategy:
 
 After hitting the stack limit, you switched to an iterative BFS using an explicit `Deque`. The outer loop and sinking logic are identical; only `sinkIsland` changed.
 
-**Correctness:** Handles all cases, including the 300 × 300 boundary. Marking cells `'0'` on enqueue (not dequeue) is the right call — it prevents the same cell from being added to the queue multiple times by multiple neighbors.
+**Correctness:** Handles all cases, including the 300 × 300 boundary. Marking cells `'0'` on enqueue (not dequeue) is the right call — it prevents the same cell from being added to the queue multiple times.
 
-**Code quality:** Still clean. The `Deque` as a queue (`add` / `poll`) is idiomatic Java. No unnecessary complexity introduced.
+**Code quality:** Still clean. The `Deque` as a queue (`add` / `poll`) is idiomatic Java.
 
 **Time complexity — O(m × n):** Same as DFS — every cell is processed once.
 
-**Space complexity — O(min(m, n)):** BFS queue holds at most the cells on the "frontier" of the current island. In the worst case (a diagonal wave front) this is proportional to the shorter grid dimension, which is better in practice than the O(m × n) stack depth of recursive DFS.
+**Space complexity — O(min(m, n)):** BFS queue holds at most the cells on the "frontier". In the worst case this is proportional to the shorter grid dimension.
+
+**Algorithm trace** — Input: Example 2 (3 islands)
+
+```
+Grid:
+  1 1 0 0 0
+  1 1 0 0 0
+  0 0 1 0 0
+  0 0 0 1 1
+```
+
+```mermaid
+graph TD
+    subgraph "Island 1 (count=1) — BFS from (0,0)"
+        A["(0,0)"] -->|2| B["(0,1)"]
+        A -->|3| C["(1,0)"]
+        B -->|4| D["(1,1)"]
+    end
+    subgraph "Island 2 (count=2) — BFS from (2,2)"
+        E["(2,2)"]
+    end
+    subgraph "Island 3 (count=3) — BFS from (3,3)"
+        F["(3,3)"] -->|2| G["(3,4)"]
+    end
+```
+
+Edge labels = order in which cells are enqueued within each island's BFS.
 
 ---
 
 ### 2. Optimal Approach
 
-BFS iterative (your final solution) is already optimal. It shares the same asymptotic complexity as DFS but avoids the call-stack pitfall on large inputs, making it the safer production choice.
+BFS iterative (your final solution) is already optimal. It shares the same asymptotic complexity as DFS but avoids the call-stack pitfall on large inputs.
 
 ```java
 public int numIslands(char[][] grid) {
@@ -79,8 +106,25 @@ public int numIslands(char[][] grid) {
 }
 ```
 
-**Time — O(m × n):** Each cell is enqueued and dequeued at most once.  
-**Space — O(min(m, n)):** Queue size is bounded by the BFS frontier width, not the island size.
+**Time — O(m × n):** Each cell is enqueued and dequeued at most once.
+**Space — O(min(m, n)):** Queue size is bounded by the BFS frontier width.
+
+**Algorithm trace** — Input: same grid as above
+
+```mermaid
+graph TD
+    subgraph "Island 1 (count=1) — BFS from (0,0)"
+        A["(0,0)"] -->|2| B["(0,1)"]
+        A -->|3| C["(1,0)"]
+        B -->|4| D["(1,1)"]
+    end
+    subgraph "Island 2 (count=2) — BFS from (2,2)"
+        E["(2,2)"]
+    end
+    subgraph "Island 3 (count=3) — BFS from (3,3)"
+        F["(3,3)"] -->|2| G["(3,4)"]
+    end
+```
 
 ---
 
@@ -90,8 +134,8 @@ public int numIslands(char[][] grid) {
 
 Scan the grid, and for each unvisited land cell, recurse into all four neighbors to sink the island.
 
-**Time — O(m × n):** Every cell visited once.  
-**Space — O(m × n):** Call stack depth equals the size of the largest island in the worst case.  
+**Time — O(m × n):** Every cell visited once.
+**Space — O(m × n):** Call stack depth equals the size of the largest island in the worst case.
 **When acceptable:** Fine for small grids or when the input is guaranteed to have small islands. Fails under JVM default stack limits on large grids like 300 × 300 all-land.
 
 ```java
@@ -108,12 +152,28 @@ void sinkIsland(char[][] grid, int row, int col) {
 }
 ```
 
+**Algorithm trace** — Input: same grid, Island 1 only
+
+```mermaid
+graph TD
+    subgraph "Island 1 — DFS from (0,0)"
+        A["(0,0)"] -->|1| B["(1,0)"]
+        B -->|2| C["(2,0) — water, return"]
+        B -->|3| D["(0,0) — already 0, return"]
+        A -->|4| E["(0,1)"]
+        E -->|5| F["(1,1)"]
+        F -->|6| G["(2,1) — water, return"]
+    end
+```
+
+---
+
 #### DFS — iterative (explicit stack)
 
 Same logic as recursive DFS but uses a `Deque` as a LIFO stack instead of the call stack.
 
-**Time — O(m × n):** Every cell processed once.  
-**Space — O(m × n):** Stack can hold all land cells in the worst case (still avoids `StackOverflowError`).  
+**Time — O(m × n):** Every cell processed once.
+**Space — O(m × n):** Stack can hold all land cells in the worst case (still avoids `StackOverflowError`).
 **When acceptable:** Functionally equivalent to BFS for this problem. Prefer BFS (queue) to get the better practical space bound on the frontier.
 
 ```java
@@ -138,10 +198,35 @@ void sinkIsland(char[][] grid, int row, int col) {
 }
 ```
 
+**Algorithm trace** — Input: same grid, Island 1 from (0,0)
+
+```mermaid
+graph TD
+    subgraph "Island 1 — DFS iterative from (0,0)"
+        A["(0,0)"] -->|1 push| B["(1,0)"]
+        A -->|2 push| C["(0,1)"]
+        C -->|3 pop+push| D["(1,1)"]
+        B -->|4 pop — no land neighbors| B
+    end
+```
+
+---
+
 #### Union-Find (Disjoint Set Union)
 
 Initialize each land cell as its own component. Iterate the grid and union adjacent land cells. The number of islands equals the number of remaining root components.
 
-**Time — O(m × n · α(m × n)):** α is the inverse Ackermann function, effectively constant — so essentially O(m × n).  
-**Space — O(m × n):** Arrays for parent and rank of each cell.  
-**When acceptable:** Most useful when the grid is modified dynamically (cells flipping from water to land over time). For a static grid, BFS/DFS is simpler to implement and reason about under interview conditions.
+**Time — O(m × n · α(m × n)):** α is the inverse Ackermann function — effectively constant.
+**Space — O(m × n):** Arrays for parent and rank of each cell.
+**When acceptable:** Most useful when the grid is modified dynamically (cells flipping from water to land over time). For a static grid, BFS/DFS is simpler under interview conditions.
+
+**Algorithm trace** — Input: simplified `["1","1","0"],["0","1","0"]` (1 island)
+
+| step | action | components |
+|------|--------|------------|
+| init | each land cell is own root: (0,0),(0,1),(1,1) | 3 |
+| union (0,0)↔(0,1) | merge | 2 |
+| union (0,1)↔(1,1) | merge | 1 |
+| count roots | 1 root remains | 1 island |
+
+→ return `1`

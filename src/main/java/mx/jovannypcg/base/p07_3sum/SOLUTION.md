@@ -48,6 +48,38 @@ public List<List<Integer>> threeSum(int[] nums) {
 }
 ```
 
+**Algorithm trace** — Input: `nums = [-1, 0, 1, 2, -1, -4]` → after sort: `[-4, -1, -1, 0, 1, 2]`
+
+```
+i=0, nums[i]=-4, left=1, right=5:
+  [-4, -1, -1,  0,  1,  2]
+    i   L                R    sum=-4+(-1)+2=-3 < 0 → left++
+  [-4, -1, -1,  0,  1,  2]
+    i       L            R    sum=-4+(-1)+2=-3 < 0 → left++
+  [-4, -1, -1,  0,  1,  2]
+    i           L        R    sum=-4+0+2=-2 < 0 → left++
+  [-4, -1, -1,  0,  1,  2]
+    i               L    R    sum=-4+1+2=-1 < 0 → left++
+  left=right → exit
+
+i=1, nums[i]=-1 (first -1), left=2, right=5:
+  [-4, -1, -1,  0,  1,  2]
+        i   L            R    sum=-1+(-1)+2=0 ✓ → add [-1,-1,2], left++, right--
+
+  [-4, -1, -1,  0,  1,  2]
+        i       L    R        sum=-1+0+1=0 ✓ → add [-1,0,1], left++, right--
+  left=right → exit
+
+i=2, nums[i]=-1 == nums[1]=-1 → skip (duplicate)
+
+i=3, nums[i]=0, left=4, right=5:
+  [-4, -1, -1,  0,  1,  2]
+                i   L    R    sum=0+1+2=3 > 0 → right--
+  left=right → exit
+```
+
+→ return `[[-1,-1,2], [-1,0,1]]`
+
 ---
 
 ## Approach 2: Sort + HashSet
@@ -86,6 +118,19 @@ public List<List<Integer>> threeSum(int[] nums) {
 }
 ```
 
+**Algorithm trace** — Input (after sort): `[-4, -1, -1, 0, 1, 2]`
+
+i=1, nums[i]=-1, seen={}:
+
+| j | nums[j] | complement = 1-nums[j] | seen contains complement? | action | seen after |
+|---|---------|------------------------|--------------------------|--------|------------|
+| 2 | -1 | 2 | {} → No | — | {-1} |
+| 3 | 0 | 1 | {-1} → No | — | {-1, 0} |
+| 4 | 1 | 0 | {-1,0} → **Yes** | add [-1,0,1] | {-1, 0, 1} |
+| 5 | 2 | -1 | {-1,0,1} → **Yes** | add [-1,-1,2] | {-1, 0, 1, 2} |
+
+→ result includes `[-1,0,1]` and `[-1,-1,2]`
+
 ---
 
 ## Approach 3: Brute Force
@@ -117,3 +162,18 @@ public List<List<Integer>> threeSum(int[] nums) {
     return new ArrayList<>(result);
 }
 ```
+
+**Algorithm trace** — Input (after sort): `[-4, -1, -1, 0, 1, 2]`
+
+| i | j | k | sum | add? |
+|---|---|---|-----|------|
+| 0(-4) | 1(-1) | 2(-1) | -6 | No |
+| 0(-4) | 1(-1) | 3(0) | -5 | No |
+| 0(-4) | 1(-1) | 4(1) | -4 | No |
+| 0(-4) | 1(-1) | 5(2) | -3 | No |
+| ... | | | | (all i=0 sums ≤ -1, skip) |
+| 1(-1) | 2(-1) | 5(2) | 0 | **Yes** → [-1,-1,2] |
+| 1(-1) | 3(0) | 4(1) | 0 | **Yes** → [-1,0,1] |
+| ... | | | | |
+
+→ return `[[-1,-1,2], [-1,0,1]]`

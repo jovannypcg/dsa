@@ -17,8 +17,7 @@ approach. The overlap condition `current[0] <= previous[1]` correctly catches bo
   definition — a meeting that starts exactly when another ends is still a conflict.
 
 The early return for `null` and `length < 2` is correct: zero or one meeting trivially has no
-conflicts. (The same note as last time applies: `null` can't arrive per the constraints, but it's
-harmless.)
+conflicts.
 
 **Code quality:** Clean and readable. `current` and `previous` are clear names that make the
 loop body self-explanatory. The comparator is explicit. No complaints.
@@ -31,6 +30,16 @@ No extra data structures — `Arrays.sort` sorts the input in-place, using O(log
 for TimSort's merge passes. This is better than the Merge Intervals solution (p12), which
 needed O(n) for the output list.
 
+**Algorithm trace** — Input: `intervals = [[0,30],[5,10],[15,20]]`
+
+(already sorted by start)
+
+| i | previous | current | current[0] <= previous[1]? | result |
+|---|----------|---------|----------------------------|--------|
+| 1 | [0,30] | [5,10] | 5 <= 30 ✓ | overlap → return false |
+
+→ return `false`
+
 ---
 
 ## 2. Optimal Approach
@@ -38,7 +47,7 @@ needed O(n) for the output list.
 Sort by start time, then do one linear pass checking adjacent pairs. This is exactly what you
 implemented — your solution is already optimal.
 
-**Time: O(n log n)** — sort dominates.  
+**Time: O(n log n)** — sort dominates.
 **Space: O(log n)** — in-place sort, no output list needed.
 
 ```java
@@ -54,6 +63,14 @@ public boolean canAttendMeetings(int[][] intervals) {
     return true;
 }
 ```
+
+**Algorithm trace** — same input: `intervals = [[0,30],[5,10],[15,20]]`
+
+| i | intervals[i] | intervals[i-1] | overlap? | result |
+|---|-------------|-----------------|----------|--------|
+| 1 | [5,10] | [0,30] | 5 <= 30 ✓ | return false |
+
+→ return `false`
 
 ---
 
@@ -82,3 +99,11 @@ public boolean canAttendMeetings(int[][] intervals) {
     return true;
 }
 ```
+
+**Algorithm trace** — Input: `intervals = [[0,30],[5,10],[15,20]]`
+
+| i | j | a | b | a[0]<=b[1] && b[0]<=a[1]? |
+|---|---|---|---|---------------------------|
+| 0 | 1 | [0,30] | [5,10] | 0<=10 && 5<=30 → **true** → return false |
+
+→ return `false`

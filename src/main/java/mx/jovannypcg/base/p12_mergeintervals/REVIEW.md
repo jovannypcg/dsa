@@ -35,8 +35,7 @@ constraints guarantee `1 <= intervals.length`, so null can never arrive per the 
 keeping it.
 
 **Code quality:** Clear and readable. `current`, `last`, and `merged` are well-chosen names.
-The comparator is explicit and correct. The in-line questions you left show good reasoning about
-Java's memory model.
+The comparator is explicit and correct.
 
 **Time complexity: O(n log n)**
 The sort dominates. The subsequent loop is O(n).
@@ -45,6 +44,19 @@ The sort dominates. The subsequent loop is O(n).
 The `merged` list holds at most n intervals (output space). The sort uses O(log n) stack space
 internally.
 
+**Algorithm trace** — Input: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
+
+(already sorted by start)
+
+| i | current | last (top of merged) | current[0] <= last[1]? | action | merged |
+|---|---------|----------------------|------------------------|--------|--------|
+| init | — | — | — | merged.add([1,3]) | [[1,3]] |
+| 1 | [2,6] | [1,3] | 2 <= 3 ✓ | last[1] = max(3,6) = 6 | [[1,6]] |
+| 2 | [8,10] | [1,6] | 8 <= 6 ✗ | merged.add([8,10]) | [[1,6],[8,10]] |
+| 3 | [15,18] | [8,10] | 15 <= 10 ✗ | merged.add([15,18]) | [[1,6],[8,10],[15,18]] |
+
+→ return `[[1,6],[8,10],[15,18]]`
+
 ---
 
 ## 2. Optimal Approach
@@ -52,7 +64,7 @@ internally.
 Sort by start value, then do one linear pass comparing each interval against the last merged one.
 This is exactly what you implemented — your solution is already optimal.
 
-**Time: O(n log n)** — sort dominates.  
+**Time: O(n log n)** — sort dominates.
 **Space: O(n)** — output list.
 
 ```java
@@ -77,6 +89,16 @@ public int[][] merge(int[][] intervals) {
 }
 ```
 
+**Algorithm trace** — same as above: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
+
+| i | current | last | overlap? | merged |
+|---|---------|------|----------|--------|
+| 1 | [2,6] | [1,3] | Yes | [[1,6]] |
+| 2 | [8,10] | [1,6] | No | [[1,6],[8,10]] |
+| 3 | [15,18] | [8,10] | No | [[1,6],[8,10],[15,18]] |
+
+→ return `[[1,6],[8,10],[15,18]]`
+
 ---
 
 ## 3. Alternative Approaches
@@ -89,6 +111,17 @@ For each interval, scan all others to find overlaps and merge them. Repeat until
 - **Space: O(n)** — output list.
 - **When acceptable:** Only for very small inputs or a quick sketch during an interview — never in production.
 
+**Algorithm trace** — Input: `intervals = [[1,4],[2,3]]`
+
+| pass | i | j | overlap? | action |
+|------|---|---|----------|--------|
+| 1 | 0 ([1,4]) | 1 ([2,3]) | 2<=4 → yes | merge into [1,4] |
+| 2 | — | — | no more overlaps found | stop |
+
+→ return `[[1,4]]`
+
+---
+
 ### Graph / Connected Components — O(n²) time, O(n²) space
 
 Build a graph where two intervals share an edge if they overlap. Find connected components (BFS/DFS)
@@ -98,3 +131,16 @@ and take the min start / max end of each component.
 - **Space: O(n²)** — adjacency list.
 - **When acceptable:** Never preferred. Interesting as a thought exercise but strictly worse than
   the sort-and-scan approach on every axis.
+
+**Algorithm trace** — Input: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
+
+```mermaid
+graph TD
+    A["[1,3]"] --- B["[2,6]"]
+    C["[8,10]"]
+    D["[15,18]"]
+```
+
+Connected components: `{[1,3],[2,6]}`, `{[8,10]}`, `{[15,18]}`
+
+→ merge each component: `[[1,6], [8,10], [15,18]]`

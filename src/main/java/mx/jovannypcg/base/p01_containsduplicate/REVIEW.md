@@ -1,37 +1,43 @@
-# Review: Contains Duplicate
+# Review — Contains Duplicate
 
-## 1. DSA Category
-
-**Arrays & Hashing**
-
----
-
-## 2. Your Solution Assessment
-
-### Correctness
-Handles all cases correctly: empty array, single element, negatives, large values, and duplicates anywhere in the array. The `null` guard is a safe touch even though the problem constraints don't mention null input.
-
-### Code Quality
-Clean and readable. Naming is clear (`seen`, `current`). Logical sections are well separated with blank lines. The early-return on an empty array is a nice optimization that avoids allocating the `HashSet` unnecessarily.
-
-One minor note: the `null` check (`nums == null`) is a defensive guard that goes beyond the stated constraints (which only bound `nums.length >= 0`). It's harmless and arguably good practice, but it's worth knowing when to include it vs. when it adds noise.
-
-### Time Complexity
-**O(n)** — a single pass through the array; each `HashSet.contains` and `HashSet.add` is O(1) amortized.
-
-### Space Complexity
-**O(n)** — in the worst case (no duplicates), every element is inserted into the `HashSet`.
+| | |
+|---|---|
+| **Solved on** | 2026-06-09 |
+| **DSA Category** | Arrays & Hashing |
 
 ---
 
-## 3. Optimal Approach
+## 1. Your Solution Assessment
 
-Your solution **is** the optimal approach. A `HashSet` gives O(1) average-case lookup and insertion, achieving the best possible time complexity for this problem.
+**Correctness:** Handles all cases correctly: empty array (early return), single element, negatives, large values, and duplicates anywhere in the array. The `null` guard is a safe defensive touch even though the constraints don't mention null input.
 
-**Approach:** Iterate through the array, adding each element to a set. If an element is already present in the set before insertion, a duplicate exists — return `true`. If the loop completes without a hit, return `false`.
+**Code quality:** Clean and readable. Naming is clear (`seen`, `current`). The early return on an empty array is a nice optimization that avoids allocating the `HashSet` unnecessarily. One minor note: the index-based loop (`for (int idx = 0; ...)`) can be replaced with an enhanced for-each since `idx` itself is never needed beyond accessing `nums[idx]`.
 
-- **Time:** O(n)
-- **Space:** O(n)
+**Time complexity:** O(n) — a single pass through the array; each `HashSet.contains` and `HashSet.add` is O(1) amortized.
+
+**Space complexity:** O(n) — in the worst case (no duplicates), every element is inserted into the `HashSet`.
+
+**Algorithm trace** — Input: `nums = [1, 2, 3, 1]`
+
+| i | nums[i] | seen before? | action | seen after |
+|---|---------|-------------|--------|------------|
+| 0 | 1 | {} → No | add | {1} |
+| 1 | 2 | {1} → No | add | {1, 2} |
+| 2 | 3 | {1, 2} → No | add | {1, 2, 3} |
+| 3 | 1 | {1, 2, 3} → **Yes** | return true | — |
+
+→ return `true`
+
+---
+
+## 2. Optimal Approach
+
+Your solution is already optimal. A `HashSet` gives O(1) average-case lookup and insertion, achieving the best possible time complexity for this problem.
+
+**Strategy:** Iterate through the array. For each element, check whether it is already in the set. If yes, return `true`. If the loop completes without a hit, return `false`. Using `Set.add`'s boolean return value collapses the `contains` + `add` into a single call.
+
+**Time:** O(n) — single pass.
+**Space:** O(n) — set holds up to n elements.
 
 ```java
 public boolean containsDuplicate(int[] nums) {
@@ -47,15 +53,28 @@ public boolean containsDuplicate(int[] nums) {
 }
 ```
 
-> `Set.add` returns `false` when the element is already present, letting you collapse the `contains` + `add` into a single call.
+**Algorithm trace** — Input: `nums = [1, 2, 3, 1]`
+
+| i | nums[i] | seen.add() returns | action |
+|---|---------|-------------------|--------|
+| 0 | 1 | true (new) | continue |
+| 1 | 2 | true (new) | continue |
+| 2 | 3 | true (new) | continue |
+| 3 | 1 | **false** (already present) | return true |
+
+→ return `true`
 
 ---
 
-## 4. Alternative Approaches
+## 3. Alternative Approaches
 
-### Brute Force (Nested Loops)
+### Brute Force — nested loops
 
 Compare every pair of elements.
+
+- **Time:** O(n²) — all pairs.
+- **Space:** O(1) — no extra data structures.
+- **When acceptable:** Extremely small inputs or as a starting sketch to motivate a better approach. Never acceptable as a final answer.
 
 ```java
 for (int i = 0; i < nums.length; i++) {
@@ -66,13 +85,25 @@ for (int i = 0; i < nums.length; i++) {
 return false;
 ```
 
-- **Time:** O(n²)
-- **Space:** O(1)
-- **When acceptable:** Extremely small inputs or interview situations where you need to demonstrate understanding before optimizing.
+**Algorithm trace** — Input: `nums = [1, 2, 3, 1]`
 
-### Sorting
+| i | j | nums[i] | nums[j] | Match? |
+|---|---|---------|---------|--------|
+| 0 | 1 | 1 | 2 | No |
+| 0 | 2 | 1 | 3 | No |
+| 0 | 3 | 1 | 1 | **Yes** → return true |
 
-Sort the array first; duplicates become adjacent and can be found in a single pass.
+→ return `true`
+
+---
+
+### Sort then scan
+
+Sort the array; duplicates become adjacent and are found in a single pass.
+
+- **Time:** O(n log n) — dominated by the sort.
+- **Space:** O(1) extra (in-place sort uses O(log n) call stack).
+- **When acceptable:** When memory is tightly constrained and O(n log n) time is acceptable. Note: mutates the input array.
 
 ```java
 Arrays.sort(nums);
@@ -82,6 +113,12 @@ for (int i = 1; i < nums.length; i++) {
 return false;
 ```
 
-- **Time:** O(n log n) — dominated by the sort.
-- **Space:** O(1) extra (in-place sort), though `Arrays.sort` on primitives uses Dual-Pivot Quicksort which is O(log n) stack space.
-- **When acceptable:** When memory is tightly constrained and O(n log n) time is acceptable. Note that this mutates the input array, which may be undesirable.
+**Algorithm trace** — Input: `nums = [1, 2, 3, 1]`
+
+After sort: `[1, 1, 2, 3]`
+
+| i | nums[i-1] | nums[i] | Equal? |
+|---|-----------|---------|--------|
+| 1 | 1 | 1 | **Yes** → return true |
+
+→ return `true`
