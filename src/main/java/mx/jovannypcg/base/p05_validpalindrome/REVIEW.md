@@ -11,22 +11,46 @@
 
 **Correctness:** The solution handles all cases correctly. The key fix you applied — swapping the bounds check before `charAt` in both inner loops — is exactly right and prevents the `StringIndexOutOfBoundsException` for strings that are entirely non-alphanumeric (e.g., `"..."`). The `left > right` guard after the skipping loops is a good defensive check that handles strings where all characters are non-alphanumeric and the pointers cross mid-skip. The early return for `null` and blank strings is also correct.
 
-**Code quality:** Clean and readable. Variable names (`left`, `right`, `cLeft`, `cRight`) are clear. The working notes in the block comment are harmless — in a real PR you'd strip those, but they show good thinking. The `System.out.println` debug line from an earlier version has been removed, which is good.
+**Code quality:** Clean and readable. Variable names (`left`, `right`, `cLeft`, `cRight`) are clear. The working notes in the block comment are harmless during practice. The debug `System.out.println` has been removed, which is good.
 
-**Time complexity: O(n)** — Each character is visited at most once by either pointer; the two pointers together traverse the string linearly.
+**Time complexity: O(n)** — each character is visited at most once by either pointer.
 
-**Space complexity: O(1)** — Only a fixed number of integer variables and characters are allocated, regardless of input size. No auxiliary string is built.
+**Space complexity: O(1)** — only a fixed number of integer variables and characters, regardless of input size.
+
+**Algorithm trace** — Input: `s = "race a car"` (indices 0–9)
+
+```
+Initial:   r  a  c  e  ' '  a  ' '  c  a  r
+           L                             R
+           0  1  2  3   4   5   6   7  8  9
+
+Step 1: charAt(L=0)='r' alnum, charAt(R=9)='r' alnum
+        toLowerCase: 'r' == 'r' ✓ → L=1, R=8
+
+Step 2: charAt(L=1)='a' alnum, charAt(R=8)='a' alnum
+        'a' == 'a' ✓ → L=2, R=7
+
+Step 3: charAt(L=2)='c' alnum, charAt(R=7)='c' alnum
+        'c' == 'c' ✓ → L=3, R=6
+
+Step 4: charAt(L=3)='e' alnum, charAt(R=6)=' ' NOT alnum → skip R: R=5
+
+Step 5: charAt(L=3)='e' alnum, charAt(R=5)='a' alnum
+        'e' != 'a' → return false
+```
+
+→ return `false`
 
 ---
 
 ## 2. Optimal Approach
 
-The two-pointer approach you implemented *is* the optimal solution. Here is a clean reference version:
+The two-pointer approach you implemented is the optimal solution. The clean version uses `left < right` as the inner-loop guard, which makes the post-skip `left > right` check unnecessary.
 
-**Strategy:** Place one pointer at each end of the string. Skip non-alphanumeric characters on both sides, then compare the characters at the two pointers in a case-insensitive way. If any pair mismatches, return `false`; if the pointers meet, return `true`.
+**Strategy:** Place one pointer at each end. Skip non-alphanumeric characters on both sides, then compare case-insensitively. If any pair mismatches, return `false`; if the pointers meet, return `true`.
 
-- **Time complexity: O(n)** — single linear pass.
-- **Space complexity: O(1)** — no extra storage.
+**Time: O(n)** — single linear pass.
+**Space: O(1)** — no extra storage.
 
 ```java
 public boolean isPalindrome(String s) {
@@ -49,7 +73,20 @@ public boolean isPalindrome(String s) {
 }
 ```
 
-Note: using `left < right` as the guard in the inner loops (instead of `left < n` / `right >= 0`) makes the `left > right` post-skip check unnecessary — the outer loop condition already covers it.
+**Algorithm trace** — Input: `s = "race a car"`
+
+```
+Initial:   r  a  c  e  ' '  a  ' '  c  a  r
+           L                             R
+
+Step 1: 'r' alnum, 'r' alnum. 'r'=='r' ✓ → L=1, R=8
+Step 2: 'a' alnum, 'a' alnum. 'a'=='a' ✓ → L=2, R=7
+Step 3: 'c' alnum, 'c' alnum. 'c'=='c' ✓ → L=3, R=6
+Step 4: 'e' alnum, ' ' NOT alnum → inner while: R=5
+        'e' alnum, 'a' alnum. 'e'!='a' → return false
+```
+
+→ return `false`
 
 ---
 
@@ -59,9 +96,9 @@ Note: using `left < right` as the guard in the inner loops (instead of `left < n
 
 Filter the string to only lowercase alphanumeric characters into a new string, then compare it to its reverse.
 
-- **Time complexity: O(n)** — one pass to filter, one to reverse.
-- **Space complexity: O(n)** — stores the filtered string and its reverse.
-- **When acceptable:** Short strings, quick prototype, or under interview time pressure when pointer manipulation feels risky.
+- **Time: O(n)** — one pass to filter, one to reverse.
+- **Space: O(n)** — stores the filtered string and its reverse.
+- **When acceptable:** Short strings or under interview time pressure when pointer manipulation feels risky.
 
 ```java
 public boolean isPalindrome(String s) {
@@ -71,12 +108,25 @@ public boolean isPalindrome(String s) {
 }
 ```
 
-### Clean-and-two-pointer (single filtered string)
+**Algorithm trace** — Input: `s = "race a car"`
 
-Same filtering step, but then use two pointers on the cleaned string instead of reversing it — saves the extra string allocation.
+| Step | Action | Value |
+|------|--------|-------|
+| toLowerCase | | "race a car" |
+| replaceAll non-alnum | | "raceacar" |
+| reverse | | "racaecar" |
+| equals | "raceacar" == "racaecar"? | **false** |
 
-- **Time complexity: O(n)**
-- **Space complexity: O(n)** — still allocates the filtered string, but not a second one.
+→ return `false`
+
+---
+
+### Clean-and-two-pointer (on filtered string)
+
+Same filtering step, but then use two pointers on the cleaned string instead of reversing it — saves the second string allocation.
+
+- **Time: O(n)**
+- **Space: O(n)** — still allocates the filtered string, but not a second one.
 - **When acceptable:** Cleaner to reason about than raw-string two pointers; still O(n) space.
 
 ```java
@@ -89,3 +139,17 @@ public boolean isPalindrome(String s) {
     return true;
 }
 ```
+
+**Algorithm trace** — Input: `s = "race a car"` → cleaned: `"raceacar"`
+
+```
+Initial:  r  a  c  e  a  c  a  r
+          L                    R
+
+Step 1: 'r' == 'r' ✓ → L=1, R=6
+Step 2: 'a' == 'a' ✓ → L=2, R=5
+Step 3: 'c' == 'c' ✓ → L=3, R=4
+Step 4: 'e' != 'a' → return false
+```
+
+→ return `false`

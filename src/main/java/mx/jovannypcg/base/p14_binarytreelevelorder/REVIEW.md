@@ -15,7 +15,29 @@
 
 **Time complexity: O(n)** — every node is enqueued once and dequeued once, so the total work is linear in the number of nodes.
 
-**Space complexity: O(n)** — the queue holds at most one full level at a time. For a complete binary tree, the bottom level can contain up to n/2 nodes, which is O(n). The output list itself also holds all n values, contributing another O(n).
+**Space complexity: O(n)** — the queue holds at most one full level at a time. For a complete binary tree, the bottom level can contain up to n/2 nodes, which is O(n). The output list itself also holds all n values.
+
+**Algorithm trace** — Input: `root = [3,9,20,null,null,15,7]`
+
+```
+        3
+       / \
+      9   20
+         /  \
+        15    7
+```
+
+```mermaid
+graph TD
+    A((3)) -->|"step 2, level 0"| B((9))
+    A -->|"step 3, level 0"| C((20))
+    C -->|"step 4, level 1"| D((15))
+    C -->|"step 5, level 1"| E((7))
+```
+
+Level snapshots: `[[3]]` → `[[3],[9,20]]` → `[[3],[9,20],[15,7]]`
+
+→ return `[[3],[9,20],[15,7]]`
 
 ---
 
@@ -52,6 +74,18 @@ public List<List<Integer>> levelOrder(TreeNode root) {
 }
 ```
 
+**Algorithm trace** — same input: `root = [3,9,20,null,null,15,7]`
+
+```mermaid
+graph TD
+    A((3)) -->|"step 2"| B((9))
+    A -->|"step 3"| C((20))
+    C -->|"step 4"| D((15))
+    C -->|"step 5"| E((7))
+```
+
+→ return `[[3],[9,20],[15,7]]`
+
 ---
 
 ## 3. Alternative Approaches
@@ -80,6 +114,20 @@ private void dfs(TreeNode node, int depth, List<List<Integer>> result) {
 }
 ```
 
+**Algorithm trace** — Input: `root = [3,9,20,null,null,15,7]`
+
+| Depth | Call | depth | result.size() | action |
+|-------|------|-------|---------------|--------|
+| 0 | dfs(3, 0) | 0 | 0 | new sublist, add 3 → [[3]] |
+| 1 | dfs(9, 1) | 1 | 1 | new sublist, add 9 → [[3],[9]] |
+| 1 | dfs(20, 1) | 1 | 2 | add 20 → [[3],[9,20]] |
+| 2 | dfs(15, 2) | 2 | 2 | new sublist, add 15 → [[3],[9,20],[15]] |
+| 2 | dfs(7, 2) | 2 | 3 | add 7 → [[3],[9,20],[15,7]] |
+
+→ return `[[3],[9,20],[15,7]]`
+
+---
+
 ### BFS with null sentinel
 
 Enqueue `null` as a level separator. Each time you dequeue `null`, the current level is complete — flush it and enqueue another `null` if the queue is non-empty.
@@ -87,3 +135,19 @@ Enqueue `null` as a level separator. Each time you dequeue `null`, the current l
 - **Time:** O(n).
 - **Space:** O(n).
 - **When acceptable:** Occasionally seen in older code or interview answers, but the level-size snapshot (your approach) is cleaner and less error-prone — it's easy to introduce an infinite loop with sentinels if you forget the non-empty guard.
+
+**Algorithm trace** — Input: `root = [3,9,20,null,null,15,7]`
+
+```mermaid
+graph TD
+    A((3)) -->|"step 1"| S1["null (sentinel)"]
+    A -->|"step 2"| B((9))
+    A -->|"step 3"| C((20))
+    C -->|"step 5"| S2["null (sentinel)"]
+    C -->|"step 6"| D((15))
+    C -->|"step 7"| E((7))
+```
+
+Queue evolution: `[3]` → `[null]` (flush level 0) → `[9,20,null]` → `[20,null]` → `[null,15,7]` (flush level 1) → `[15,7]` → drain (flush level 2)
+
+→ return `[[3],[9,20],[15,7]]`

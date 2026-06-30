@@ -23,15 +23,25 @@ The bug you caught mid-session (`inDegree[prerequisite[1]]++` → `inDegree[prer
 Clean and readable. Variable names (`inDegree`, `order`, `queue`, `node`, `neighbor`) are precise. The scratch-work comment block at the top is a trace of your thinking — fine during practice, but would be removed before a real submission.
 
 **Time complexity: O(V + E)**
-- Building the graph: O(E) where E = `prerequisites.length`.
+- Building the graph: O(E).
 - Building in-degree array: O(E).
-- BFS: each node is enqueued/dequeued once (O(V)) and each edge is traversed once (O(E)).
-- Overall: O(V + E) where V = `numCourses`.
+- BFS: each node enqueued/dequeued once (O(V)), each edge traversed once (O(E)).
 
 **Space complexity: O(V + E)**
-- Adjacency list: O(V + E).
-- `inDegree` and `order` arrays: O(V).
-- Queue: O(V) worst case.
+- Adjacency list: O(V + E). `inDegree` and `order` arrays: O(V). Queue: O(V) worst case.
+
+**Algorithm trace** — Input: `numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]`
+
+Graph: 0→1, 0→2, 1→3, 2→3. inDegree: `[0, 1, 1, 2]`. Initial queue: `[0]`
+
+| step | dequeue | order | neighbors processed | inDegree after | enqueued |
+|------|---------|-------|---------------------|----------------|----------|
+| 1 | 0 | [0] | 1→0, 2→0 | [0,0,0,2] | 1, 2 |
+| 2 | 1 | [0,1] | 3→1 | [0,0,0,1] | — |
+| 3 | 2 | [0,1,2] | 3→0 | [0,0,0,0] | 3 |
+| 4 | 3 | [0,1,2,3] | — | | |
+
+idx=4 == numCourses=4 → return `[0,1,2,3]`
 
 ---
 
@@ -41,8 +51,8 @@ Kahn's algorithm (what you implemented) is already optimal for this problem.
 
 **Strategy:** Model courses as nodes and prerequisites as directed edges. Count in-degrees. Start from nodes with no prerequisites (in-degree 0) and repeatedly "peel" them off the graph, decrementing neighbors' in-degrees. If all nodes are processed, a valid topological order exists; otherwise a cycle was detected.
 
-- **Time:** O(V + E) — each node and edge is visited once.
-- **Space:** O(V + E) — adjacency list dominates.
+**Time:** O(V + E) — each node and edge is visited once.
+**Space:** O(V + E) — adjacency list dominates.
 
 ```java
 public int[] findOrder(int numCourses, int[][] prerequisites) {
@@ -73,6 +83,17 @@ public int[] findOrder(int numCourses, int[][] prerequisites) {
     return idx == numCourses ? order : new int[0];
 }
 ```
+
+**Algorithm trace** — same as above: `numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]`
+
+| step | dequeue | order | inDegree after |
+|------|---------|-------|----------------|
+| 1 | 0 | [0] | [0,0,0,2] |
+| 2 | 1 | [0,1] | [0,0,0,1] |
+| 3 | 2 | [0,1,2] | [0,0,0,0] |
+| 4 | 3 | [0,1,2,3] | |
+
+→ return `[0,1,2,3]`
 
 ---
 
@@ -115,10 +136,37 @@ private boolean hasCycle(int node, List<List<Integer>> graph, int[] state, Deque
 }
 ```
 
+**Algorithm trace** — Input: `numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]`
+
+| Depth | Call | Action | Returns |
+|-------|------|--------|---------|
+| 0 | hasCycle(0) | mark visiting | recurse into 1, 2 |
+| 1 | hasCycle(1) | mark visiting | recurse into 3 |
+| 2 | hasCycle(3) | mark visiting, no neighbors | push 3, mark visited, false |
+| 1 | (1) | | push 1, mark visited, false |
+| 0 | hasCycle(2) | mark visiting, neighbor 3 already visited (state=2) — skip | push 2, mark visited, false |
+| 0 | (0) | | push 0, mark visited, false |
+
+Stack (bottom→top): `[3, 1, 2, 0]` → pop order: `[0, 2, 1, 3]`
+
+→ return `[0, 2, 1, 3]` (a valid topological order)
+
+---
+
 ### Brute-force repeated scanning
 
 Repeatedly scan all prerequisites, adding a course to the order once all its prerequisites are already in the order. Repeat until no progress is made (cycle detected) or all courses are scheduled.
 
 - **Time:** O(V * E) — up to V passes each scanning all E edges.
 - **Space:** O(V) — just the visited set and output array.
-- **When acceptable:** Only for very small inputs or if you forget Kahn's under pressure. Not acceptable in a real interview for this problem size.
+- **When acceptable:** Only for very small inputs or if you forget Kahn's under pressure.
+
+**Algorithm trace** — Input: `numCourses = 4, prerequisites = [[1,0],[2,0],[3,1],[3,2]]`
+
+| Pass | Scan result | order |
+|------|------------|-------|
+| 1 | 0 has no prereqs → add | [0] |
+| 2 | 1's prereq (0) in order → add; 2's prereq (0) in order → add | [0,1,2] |
+| 3 | 3's prereqs (1,2) in order → add | [0,1,2,3] |
+
+All 4 courses scheduled → return `[0,1,2,3]`
