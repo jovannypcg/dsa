@@ -62,8 +62,8 @@ mx.jovannypcg.base.p02_validanagram
 | `Solution.java` | Stub with Javadoc. You implement the method body. |
 | `README.md` | Problem statement, I/O examples, constraints, and progressive hints. |
 | `SolutionTest.java` | Exhaustive JUnit 5 tests covering happy path, edge cases, and constraint boundaries. |
-| `REVIEW.md` | Generated when you type **"Done"**. Contains complexity analysis of your solution, the optimal approach, and alternative approaches. |
-| `SOLUTION.md` | Generated when you type **"Give up"**. Contains all approaches ordered from most to least optimal, each with explanation, complexity, and Java code. |
+| `REVIEW.md` | Generated when you type **"Done"** (after `SolutionTest` passes). Contains complexity analysis of your solution, the optimal approach, alternative approaches, and an algorithm trace for each. |
+| `SOLUTION.md` | Generated when you type **"Give up"**. Contains all approaches ordered from most to least optimal, each with explanation, complexity, Java code, and an algorithm trace. Claude also implements the optimal solution in `Solution.java` and confirms tests pass. |
 
 ## Learning Guides (`./docs`)
 
@@ -107,6 +107,9 @@ Run tests for a specific problem:
 | 11 | Course Schedule II | Topological Sort | ✅ |
 | 12 | Merge Intervals | Intervals | ✅ |
 | 13 | Meeting Rooms | Intervals | ✅ |
+| 14 | Binary Tree Level Order Traversal | Trees | ✅ |
+| 15 | Remove Duplicates from Sorted Array | Two Pointers | ✅ |
+| 16 | Middle of the Linked List | Linked List | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
@@ -127,5 +130,5 @@ Claude will automatically:
 
 When you finish implementing `Solution.java`, type:
 
-- **`Done`** → Claude reads your solution and writes `REVIEW.md` with complexity analysis, the optimal approach, and alternatives.
-- **`Give up`** → Claude writes `SOLUTION.md` with all approaches explained, ordered from most to least optimal.
+- **`Done`** → Claude runs `SolutionTest` (must pass), then writes `REVIEW.md` with complexity analysis, the optimal approach, alternatives, and an algorithm trace for each.
+- **`Give up`** → Claude writes `SOLUTION.md` with all approaches explained (ordered from most to least optimal, each with an algorithm trace), implements the optimal solution in `Solution.java`, and confirms tests pass.
