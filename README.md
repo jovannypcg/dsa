@@ -30,26 +30,25 @@ sdk install maven 3.9.16
 .
 ├── docs/
 │   ├── coding-patterns/          # DSA pattern reference guides
-│   │   ├── arrays-and-hashing/
-│   │   ├── backtracking/
-│   │   ├── binary-search/
-│   │   ├── breadth-first-search/
-│   │   ├── depth-first-search/
-│   │   ├── graphs/
-│   │   ├── greedy/
-│   │   ├── heap-priority-queue/
-│   │   ├── intervals/
-│   │   ├── linked-list/
-│   │   ├── queue/
-│   │   ├── sliding-window/
-│   │   ├── stack/
-│   │   ├── topological-sort/
-│   │   ├── trees/
-│   │   ├── tries/
-│   │   ├── two-pointers/
-│   │   ├── 1d-dynamic-programming/
-│   │   └── 2d-dynamic-programming/
-│   │       └── LEARN.md          # Pattern explanation, template, practice list
+│   │   ├── arrays-and-hashing.md
+│   │   ├── backtracking.md
+│   │   ├── binary-search.md
+│   │   ├── breadth-first-search.md
+│   │   ├── depth-first-search.md
+│   │   ├── graphs.md
+│   │   ├── greedy.md
+│   │   ├── heap-priority-queue.md
+│   │   ├── intervals.md
+│   │   ├── linked-list.md
+│   │   ├── queue.md
+│   │   ├── sliding-window.md
+│   │   ├── stack.md
+│   │   ├── topological-sort.md
+│   │   ├── trees.md
+│   │   ├── tries.md
+│   │   ├── two-pointers.md
+│   │   ├── 1d-dynamic-programming.md
+│   │   └── 2d-dynamic-programming.md
 │   └── design-patterns/          # Design pattern reference guides
 │       ├── creational/
 │       ├── structural/
@@ -89,7 +88,7 @@ mx.jovannypcg.base.p02_validanagram
 
 ## Learning Guides (`./docs`)
 
-- `docs/coding-patterns/` — each subfolder maps to a DSA pattern category and contains a `LEARN.md` with:
+- `docs/coding-patterns/` — one Markdown file per DSA pattern category, each with:
   - How to recognize the pattern
   - Step-by-step approach
   - Java code template
