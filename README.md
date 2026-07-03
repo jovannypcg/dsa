@@ -5,33 +5,55 @@ A personal Java repository for studying Data Structures & Algorithms in preparat
 ## Stack
 
 - **Language**: Java 17
-- **Build**: Maven (`./mvnw`)
+- **Build**: Maven 3.9.16
 - **Tests**: JUnit 5 + AssertJ
+
+## Prerequisites
+
+Install [SDKMAN](https://sdkman.io/):
+
+```bash
+curl -s "https://get.sdkman.io" | bash
+source "$HOME/.sdkman/bin/sdkman-init.sh"
+```
+
+Install Java 17 and Maven 3.9.16 via SDKMAN:
+
+```bash
+sdk install java 17.0.19-tem
+sdk install maven 3.9.16
+```
 
 ## Repository Structure
 
 ```
 .
-├── docs/                        # DSA pattern reference guides
-│   ├── arrays-and-hashing/
-│   ├── binary-search/
-│   ├── breadth-first-search/
-│   ├── depth-first-search/
-│   ├── graphs/
-│   ├── greedy/
-│   ├── heap-priority-queue/
-│   ├── intervals/
-│   ├── linked-list/
-│   ├── queue/
-│   ├── sliding-window/
-│   ├── stack/
-│   ├── topological-sort/
-│   ├── trees/
-│   ├── tries/
-│   ├── two-pointers/
-│   ├── 1d-dynamic-programming/
-│   └── 2d-dynamic-programming/
-│       └── LEARN.md            # Pattern explanation, template, practice list
+├── docs/
+│   ├── coding-patterns/          # DSA pattern reference guides
+│   │   ├── arrays-and-hashing/
+│   │   ├── backtracking/
+│   │   ├── binary-search/
+│   │   ├── breadth-first-search/
+│   │   ├── depth-first-search/
+│   │   ├── graphs/
+│   │   ├── greedy/
+│   │   ├── heap-priority-queue/
+│   │   ├── intervals/
+│   │   ├── linked-list/
+│   │   ├── queue/
+│   │   ├── sliding-window/
+│   │   ├── stack/
+│   │   ├── topological-sort/
+│   │   ├── trees/
+│   │   ├── tries/
+│   │   ├── two-pointers/
+│   │   ├── 1d-dynamic-programming/
+│   │   └── 2d-dynamic-programming/
+│   │       └── LEARN.md          # Pattern explanation, template, practice list
+│   └── design-patterns/          # Design pattern reference guides
+│       ├── creational/
+│       ├── structural/
+│       └── behavioral/
 │
 └── src/
     ├── main/java/mx/jovannypcg/base/
@@ -67,12 +89,12 @@ mx.jovannypcg.base.p02_validanagram
 
 ## Learning Guides (`./docs`)
 
-Each subfolder in `docs/` maps to a DSA pattern category and contains a `LEARN.md` with:
-
-- How to recognize the pattern
-- Step-by-step approach
-- Java code template
-- Up to 20 curated practice problems (LeetCode / NeetCode links)
+- `docs/coding-patterns/` — each subfolder maps to a DSA pattern category and contains a `LEARN.md` with:
+  - How to recognize the pattern
+  - Step-by-step approach
+  - Java code template
+  - Up to 20 curated practice problems (LeetCode / NeetCode links)
+- `docs/design-patterns/` — creational, structural, and behavioral design patterns, one Markdown file per pattern.
 
 Read the relevant guide before starting a problem to prime your thinking on the pattern.
 
@@ -81,13 +103,13 @@ Read the relevant guide before starting a problem to prime your thinking on the 
 Run all tests:
 
 ```bash
-./mvnw test
+mvn test
 ```
 
 Run tests for a specific problem:
 
 ```bash
-./mvnw test -Dtest="SolutionTest" -pl .
+mvn test -Dtest="SolutionTest" -pl .
 ```
 
 ## Solved Problems
