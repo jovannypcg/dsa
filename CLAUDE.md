@@ -5,7 +5,7 @@ This repository is a Java DSA (Data Structures & Algorithms) study project used 
 ## Project Structure
 
 - **Language**: Java 17
-- **Build tool**: Maven (use `./mvnw`)
+- **Build tool**: Maven (use `mvn`)
 - **Test framework**: JUnit 5 + AssertJ
 - **Base package**: `mx.jovannypcg.base`
 - Source: `src/main/java/mx/jovannypcg/base/`
@@ -146,13 +146,13 @@ Explanation: The two 3s at indices 0 and 1 add up to 6.
 ## Running Tests
 
 ```bash
-./mvnw test
+mvn test
 ```
 
 To run tests for a single problem:
 
 ```bash
-./mvnw test -Dtest="SolutionTest" -pl .
+mvn test -Dtest="SolutionTest" -pl .
 ```
 
 ## "Done" Signal — Post-Exercise Review
@@ -166,7 +166,7 @@ src/main/java/mx/jovannypcg/base/p<NN>_<name>/REVIEW.md
 Before writing `REVIEW.md`, run the tests for the current problem:
 
 ```bash
-./mvnw test -Dtest="SolutionTest" -pl .
+mvn test -Dtest="SolutionTest" -pl .
 ```
 
 If any tests fail, report which ones and why, and ask the user to fix them. Do not write `REVIEW.md` until all tests pass.
@@ -220,7 +220,7 @@ src/main/java/mx/jovannypcg/base/p<NN>_<name>/SOLUTION.md
 After writing `SOLUTION.md`, implement the optimal solution in `Solution.java` and run the tests to confirm they pass:
 
 ```bash
-./mvnw test -Dtest="SolutionTest" -pl .
+mvn test -Dtest="SolutionTest" -pl .
 ```
 
 If any tests fail, fix the implementation before finishing. Report the test results to the user.
