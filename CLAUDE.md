@@ -171,6 +171,14 @@ mvn test -Dtest="SolutionTest" -pl .
 
 If any tests fail, report which ones and why, and ask the user to fix them. Do not write `REVIEW.md` until all tests pass.
 
+Even when all tests pass, carefully read `Solution.java` for logical bugs before writing `REVIEW.md`. If a bug is found:
+1. Do **not** write `REVIEW.md`.
+2. Describe the bug clearly and provide a concrete counterexample (input → expected output → actual output).
+3. Add a failing test case for that counterexample to `SolutionTest.java`.
+4. Ask the user to fix the bug. Resume the "Done" flow (re-run tests, then write `REVIEW.md`) only after all tests pass.
+
+Once `REVIEW.md` is written, sync the **Solved Problems** table in `README.md` (see Syncing README below).
+
 Open `REVIEW.md` with a summary table in this exact format:
 
 ```markdown
@@ -225,6 +233,13 @@ mvn test -Dtest="SolutionTest" -pl .
 
 If any tests fail, fix the implementation before finishing. Report the test results to the user.
 
+Even when all tests pass, carefully read the implemented `Solution.java` for logical bugs. If a bug is found:
+1. Describe the bug clearly and provide a concrete counterexample (input → expected output → actual output).
+2. Add a failing test case for that counterexample to `SolutionTest.java`.
+3. Fix the bug in `Solution.java` and re-run the tests. Do not proceed until all tests pass.
+
+Once `SOLUTION.md` is written and tests pass, sync the **Solved Problems** table in `README.md` (see Syncing README below).
+
 Open `SOLUTION.md` with a summary table in this exact format:
 
 ```markdown
@@ -245,6 +260,20 @@ Arrays & Hashing, Two Pointers, Sliding Window, Stack, Binary Search, Linked Lis
 - **Algorithm trace**: a trace of the approach on one representative example. Choose the format from the Algorithm Traces section below based on the algorithm type.
 
 The goal is that the user reads `SOLUTION.md` and immediately understands how to solve the problem. Keep explanations tight.
+
+---
+
+## Syncing README
+
+After completing either the **"Done"** or **"Give up"** flow, rebuild the **Solved Problems** table in `README.md` from the actual state of `src/main/java/mx/jovannypcg/base/`. Do not rely on the existing table — derive it fresh:
+
+1. List all subpackages under `mx.jovannypcg.base` (sorted by numeric prefix).
+2. For each subpackage, determine:
+   - **#** — the numeric prefix (e.g., `01`)
+   - **Problem** — a human-readable name derived from the package suffix
+   - **Category** — read from the DSA Category field in `REVIEW.md` or `SOLUTION.md` if present; otherwise leave blank
+   - **Result** — `✅` if `REVIEW.md` exists, `💡` if only `SOLUTION.md` exists, `🔄` if neither exists yet (stub only)
+3. Replace the entire Solved Problems table in `README.md` with the rebuilt version.
 
 ---
 
