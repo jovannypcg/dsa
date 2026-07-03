@@ -131,6 +131,10 @@ mvn test -Dtest="SolutionTest" -pl .
 | 14 | Binary Tree Level Order Traversal | Trees | ✅ |
 | 15 | Remove Duplicates from Sorted Array | Two Pointers | ✅ |
 | 16 | Middle of the Linked List | Linked List | ✅ |
+| 17 | Move Zeros | Two Pointers | ✅ |
+| 18 | Remove Nth Node From End of List | Linked List | ✅ |
+| 19 | Container With Most Water | Two Pointers | ✅ |
+| 20 | Valid Palindrome II | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
