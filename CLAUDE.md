@@ -273,14 +273,21 @@ Input: `nums = [2, 7, 11, 15]`, `target = 9`
 ### Annotated array example (Two Pointers)
 Input: `nums = [1, 2, 3, 4, 6]`, `target = 6`
 ```
-Step 1: [1, 2, 3, 4, 6]   sum=7 > 6 → move right left
-         L           R
-Step 2: [1, 2, 3, 4, 6]   sum=5 < 6 → move left right
-         L        R
-Step 3: [1, 2, 3, 4, 6]   sum=6 ✓
-            L     R
+L=0 R=4  sum=7 > 6 → move R left
+[1, 2, 3, 4, 6]
+ L           R
+
+L=0 R=3  sum=5 < 6 → move L right
+[1, 2, 3, 4, 6]
+ L        R
+
+L=1 R=3  sum=6 ✓
+[1, 2, 3, 4, 6]
+    L     R
 → return [2, 4] (1-indexed)
 ```
+
+**Rule**: repeat the input array on every step so pointer positions are unambiguous. Never show only the pointer line without the array above it.
 
 ### Call stack table example (Fibonacci / recursion)
 Input: `n = 4`
