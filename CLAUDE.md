@@ -48,9 +48,9 @@ mx.jovannypcg.base.p<NN>_<problemname>
 4. **Create the test class** at:
    `src/test/java/mx/jovannypcg/base/p<NN>_<name>/SolutionTest.java`
    - Same package as the solution class.
-   - Use JUnit 5 (`@Test`, `@ParameterizedTest`, etc.) and AssertJ (`assertThat(...)`).
+   - Use JUnit 5 (`@Test`) and AssertJ (`assertThat(...)`).
    - Every `@Test` method must have a `@DisplayName` annotation with a human-readable description of what the test checks (e.g., `@DisplayName("two courses, direct cycle → empty array")`).
-   - Every `@ParameterizedTest` must set `name` to include the index and relevant inputs (e.g., `@ParameterizedTest(name = "[{index}] nums={0}, target={1} → {2}")`), so that each failing case is immediately identifiable in the output without looking up the source.
+   - Write one `@Test` method per case — do not use `@ParameterizedTest`. Individual test functions are easier to debug and follow.
    - Cover: happy path, edge cases (empty input, single element, duplicates, negatives, large values), and boundary values derived from the constraints in `README.md`.
 5. **After generating all files**, end with the message:
    > Type **"Done"** to let me know you've finished, or **"Give up"** if you'd like to see the solution.
