@@ -136,6 +136,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 19 | Container With Most Water | Two Pointers | ✅ |
 | 20 | Valid Palindrome II | Two Pointers | ✅ |
 | 21 | Valid Word Abbreviation | Two Pointers | ✅ |
+| 22 | Merge Strings Alternately | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
