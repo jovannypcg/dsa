@@ -135,6 +135,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 18 | Remove Nth Node From End of List | Linked List | ✅ |
 | 19 | Container With Most Water | Two Pointers | ✅ |
 | 20 | Valid Palindrome II | Two Pointers | ✅ |
+| 21 | Valid Word Abbreviation | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
