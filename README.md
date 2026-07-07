@@ -137,6 +137,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 20 | Valid Palindrome II | Two Pointers | ✅ |
 | 21 | Valid Word Abbreviation | Two Pointers | ✅ |
 | 22 | Merge Strings Alternately | Two Pointers | ✅ |
+| 23 | Merge Sorted Array | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
