@@ -5,18 +5,11 @@
 
 ## 1. Your Solution Assessment
 
-**Correctness:** Fully correct. The `while (idx < word1.length() || idx < word2.length())`
-condition naturally handles both the interleaving phase and the "append the remainder of the
-longer string" phase, since each `if` guard independently checks bounds before appending. All
-10 test cases pass, including the equal-length case, both directions of unequal length, and
-the boundary lengths from the constraints (1 and 100 characters).
+**Correctness:** Fully correct. The `while (idx < word1.length() || idx < word2.length())` condition naturally handles both the interleaving phase and the "append the remainder of the longer string" phase, since each `if` guard independently checks bounds before appending. All 10 test cases pass, including the equal-length case, both directions of unequal length, and the boundary lengths from the constraints (1 and 100 characters).
 
-**Code quality:** Clean and easy to follow — a single shared index driving both strings is a
-natural fit for this problem, and `StringBuilder` avoids the O(n²) cost of string
-concatenation.
+**Code quality:** Clean and easy to follow — a single shared index driving both strings is a natural fit for this problem, and `StringBuilder` avoids the O(n²) cost of string concatenation.
 
-**Time complexity:** O(n + m), where `n = word1.length()` and `m = word2.length()`. The loop
-runs `max(n, m)` times, and each iteration does O(1) work.
+**Time complexity:** O(n + m), where `n = word1.length()` and `m = word2.length()`. The loop runs `max(n, m)` times, and each iteration does O(1) work.
 
 **Space complexity:** O(n + m) for the output string itself; O(1) auxiliary space beyond that.
 
@@ -64,10 +57,7 @@ idx=6 → idx >= word1.length() and idx >= word2.length() → loop ends
 
 ## 2. Optimal Approach
 
-This problem has essentially one optimal shape: walk both strings with a shared index and
-append whichever characters are still in bounds, using a mutable buffer. The user's solution
-already implements this — there isn't a faster asymptotic approach, since every character of
-both strings must be read and written at least once.
+This problem has essentially one optimal shape: walk both strings with a shared index and append whichever characters are still in bounds, using a mutable buffer. The user's solution already implements this — there isn't a faster asymptotic approach, since every character of both strings must be read and written at least once.
 
 **Time complexity:** O(n + m) — one pass, one append per character.
 
@@ -123,16 +113,12 @@ i=4 → both out of bounds → loop ends
 ## 3. Alternative Approaches
 
 ### Two independent pointers with separate phases
-Use one pointer `i` for `word1` and one `j` for `word2`. First loop while both are in bounds,
-interleaving characters; then two follow-up loops each drain whatever remains of the longer
-string. Functionally identical to the optimal approach, just split into explicit phases
-instead of one combined condition.
+Use one pointer `i` for `word1` and one `j` for `word2`. First loop while both are in bounds, interleaving characters; then two follow-up loops each drain whatever remains of the longer string. Functionally identical to the optimal approach, just split into explicit phases instead of one combined condition.
 
 **Time complexity:** O(n + m) — same total work, just organized into up to three loops.
 **Space complexity:** O(n + m) for the result; O(1) auxiliary.
 
-**When acceptable:** Interview settings where you want to make the "handle the leftover tail"
-step visually explicit rather than folding it into a single combined condition.
+**When acceptable:** Interview settings where you want to make the "handle the leftover tail" step visually explicit rather than folding it into a single combined condition.
 
 **Algorithm trace** (Annotated array) — Input: `word1 = "ab"`, `word2 = "abbxxc"`
 
@@ -156,18 +142,12 @@ append 'b','x','x','c' → result = "aabbbxxc"
 ```
 
 ### Recursive character-by-character merge
-Define `merge(word1, word2, i)` that appends `word1.charAt(i)` (if in bounds) and
-`word2.charAt(i)` (if in bounds) to a shared buffer, then recurses on `i + 1` until both are
-out of bounds. Same logic as the iterative version, just expressed as recursion.
+Define `merge(word1, word2, i)` that appends `word1.charAt(i)` (if in bounds) and `word2.charAt(i)` (if in bounds) to a shared buffer, then recurses on `i + 1` until both are out of bounds. Same logic as the iterative version, just expressed as recursion.
 
 **Time complexity:** O(n + m) — one call per index, O(1) work per call.
-**Space complexity:** O(n + m) — O(max(n, m)) call-stack frames in addition to the O(n + m)
-result buffer.
+**Space complexity:** O(n + m) — O(max(n, m)) call-stack frames in addition to the O(n + m) result buffer.
 
-**When acceptable:** Rarely preferable here — recursion adds call-stack overhead and risks a
-stack overflow on pathological inputs with no benefit, since the problem has no natural
-divide-and-conquer structure. Mostly useful as a way to demonstrate recursion fluency in an
-interview if explicitly asked to avoid loops.
+**When acceptable:** Rarely preferable here — recursion adds call-stack overhead and risks a stack overflow on pathological inputs with no benefit, since the problem has no natural divide-and-conquer structure. Mostly useful as a way to demonstrate recursion fluency in an interview if explicitly asked to avoid loops.
 
 **Algorithm trace** (Call stack table) — Input: `word1 = "ab"`, `word2 = "abbxxc"`
 

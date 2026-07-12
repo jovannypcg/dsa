@@ -13,11 +13,7 @@
 
 Your assumption is correct: `last` is a reference (pointer), not a copy.
 
-In Java, `int[]` is an object. `List<int[]>` stores references to those objects. When you call
-`merged.get(merged.size() - 1)`, you get back the same reference that's already in the list — no
-copy is made. So when you later do `last[1] = Math.max(...)`, you are mutating the `int[]` object
-in-place, which is exactly what the list sees. Your solution relies on this behavior and it works
-correctly.
+In Java, `int[]` is an object. `List<int[]>` stores references to those objects. When you call `merged.get(merged.size() - 1)`, you get back the same reference that's already in the list — no copy is made. So when you later do `last[1] = Math.max(...)`, you are mutating the `int[]` object in-place, which is exactly what the list sees. Your solution relies on this behavior and it works correctly.
 
 The only time you'd get a copy is if you did something like `int[] last = last.clone()` or
 `Arrays.copyOf(...)`. Plain assignment of a reference type never copies.
@@ -26,23 +22,17 @@ The only time you'd get a copy is if you did something like `int[] last = last.c
 
 ## 1. Your Solution Assessment
 
-**Correctness:** Correct. Sorting by start, then doing a single left-to-right scan with
-`current[0] <= last[1]` properly handles all cases — overlapping, touching (`[1,4]` + `[4,5]`),
-and fully-contained intervals (because `Math.max` picks the larger end).
+**Correctness:** Correct. Sorting by start, then doing a single left-to-right scan with `current[0] <= last[1]` properly handles all cases — overlapping, touching (`[1,4]` + `[4,5]`), and fully-contained intervals (because `Math.max` picks the larger end).
 
-One minor note: the null check (`intervals == null`) is a good defensive habit, but the problem
-constraints guarantee `1 <= intervals.length`, so null can never arrive per the spec. No harm in
-keeping it.
+One minor note: the null check (`intervals == null`) is a good defensive habit, but the problem constraints guarantee `1 <= intervals.length`, so null can never arrive per the spec. No harm in keeping it.
 
-**Code quality:** Clear and readable. `current`, `last`, and `merged` are well-chosen names.
-The comparator is explicit and correct.
+**Code quality:** Clear and readable. `current`, `last`, and `merged` are well-chosen names. The comparator is explicit and correct.
 
 **Time complexity: O(n log n)**
 The sort dominates. The subsequent loop is O(n).
 
 **Space complexity: O(n)**
-The `merged` list holds at most n intervals (output space). The sort uses O(log n) stack space
-internally.
+The `merged` list holds at most n intervals (output space). The sort uses O(log n) stack space internally.
 
 **Algorithm trace** — Input: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
 
@@ -124,13 +114,11 @@ For each interval, scan all others to find overlaps and merge them. Repeat until
 
 ### Graph / Connected Components — O(n²) time, O(n²) space
 
-Build a graph where two intervals share an edge if they overlap. Find connected components (BFS/DFS)
-and take the min start / max end of each component.
+Build a graph where two intervals share an edge if they overlap. Find connected components (BFS/DFS) and take the min start / max end of each component.
 
 - **Time: O(n²)** — building the adjacency list requires comparing all pairs.
 - **Space: O(n²)** — adjacency list.
-- **When acceptable:** Never preferred. Interesting as a thought exercise but strictly worse than
-  the sort-and-scan approach on every axis.
+- **When acceptable:** Never preferred. Interesting as a thought exercise but strictly worse than the sort-and-scan approach on every axis.
 
 **Algorithm trace** — Input: `intervals = [[1,3],[2,6],[8,10],[15,18]]`
 

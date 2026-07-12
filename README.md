@@ -138,6 +138,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 21 | Valid Word Abbreviation | Two Pointers | ✅ |
 | 22 | Merge Strings Alternately | Two Pointers | ✅ |
 | 23 | Merge Sorted Array | Two Pointers | ✅ |
+| 24 | Merge Two 2D Arrays by Summing Values | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
