@@ -139,6 +139,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 22 | Merge Strings Alternately | Two Pointers | ✅ |
 | 23 | Merge Sorted Array | Two Pointers | ✅ |
 | 24 | Merge Two 2D Arrays by Summing Values | Two Pointers | ✅ |
+| 25 | Squares of a Sorted Array | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
