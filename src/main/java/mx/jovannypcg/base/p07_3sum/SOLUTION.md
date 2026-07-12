@@ -9,10 +9,7 @@
 
 ## Approach 1: Sort + Two Pointers (Optimal)
 
-Sort the array. Fix one element `nums[i]` and use two pointers (`left`, `right`) on the
-remaining subarray to find pairs that sum to `-nums[i]`. After sorting, moving pointers
-inward based on the current sum efficiently covers all pairs. Skip duplicate values at
-each pointer position to avoid duplicate triplets in the output.
+Sort the array. Fix one element `nums[i]` and use two pointers (`left`, `right`) on the remaining subarray to find pairs that sum to `-nums[i]`. After sorting, moving pointers inward based on the current sum efficiently covers all pairs. Skip duplicate values at each pointer position to avoid duplicate triplets in the output.
 
 - **Time:** O(n²) — one outer loop × one linear two-pointer scan per iteration
 - **Space:** O(log n) — sorting in-place; output list not counted
@@ -84,10 +81,7 @@ i=3, nums[i]=0, left=4, right=5:
 
 ## Approach 2: Sort + HashSet
 
-Sort the array. Fix one element `nums[i]`, then iterate `j` from `i+1` onward. For each
-`nums[j]`, check whether its complement (`-nums[i] - nums[j]`) has already been seen in a
-`HashSet`. If yes, a triplet is found; skip subsequent duplicates of `nums[j]` before
-continuing.
+Sort the array. Fix one element `nums[i]`, then iterate `j` from `i+1` onward. For each `nums[j]`, check whether its complement (`-nums[i] - nums[j]`) has already been seen in a `HashSet`. If yes, a triplet is found; skip subsequent duplicates of `nums[j]` before continuing.
 
 - **Time:** O(n²) — same asymptotic as two pointers, but with higher constant due to hash operations
 - **Space:** O(n) — the `HashSet` holds up to n elements per outer iteration
@@ -135,14 +129,12 @@ i=1, nums[i]=-1, seen={}:
 
 ## Approach 3: Brute Force
 
-Check every possible triple with three nested loops. Sort first so duplicates can be
-deduplicated by inserting into a `Set<List<Integer>>`.
+Check every possible triple with three nested loops. Sort first so duplicates can be deduplicated by inserting into a `Set<List<Integer>>`.
 
 - **Time:** O(n³) — three nested loops over n elements
 - **Space:** O(n) — the result set; acceptable only when n is very small
 
-Acceptable only for tiny inputs or under extreme interview time pressure where coding
-speed matters more than performance.
+Acceptable only for tiny inputs or under extreme interview time pressure where coding speed matters more than performance.
 
 ```java
 public List<List<Integer>> threeSum(int[] nums) {

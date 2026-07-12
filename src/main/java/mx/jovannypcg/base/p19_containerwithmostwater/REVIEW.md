@@ -5,22 +5,11 @@
 
 ## 1. Your Solution Assessment
 
-**Correctness:** Handles every case in the test suite (16/16 passing), including the
-minimum size `n = 2`, all-zero heights, duplicate heights, strictly increasing/decreasing
-sequences, and the `10^4` height boundary. The `heights == null || heights.length < 2`
-guard is defensive — the constraint `2 <= n <= 10^5` guarantees it's never hit, but it
-doesn't hurt. The core logic is the textbook optimal two-pointer approach: start at both
-ends (widest container), and always move the pointer at the *shorter* line, since keeping
-it fixed can never produce a taller container and the width can only shrink from there.
+**Correctness:** Handles every case in the test suite (16/16 passing), including the minimum size `n = 2`, all-zero heights, duplicate heights, strictly increasing/decreasing sequences, and the `10^4` height boundary. The `heights == null || heights.length < 2` guard is defensive — the constraint `2 <= n <= 10^5` guarantees it's never hit, but it doesn't hurt. The core logic is the textbook optimal two-pointer approach: start at both ends (widest container), and always move the pointer at the *shorter* line, since keeping it fixed can never produce a taller container and the width can only shrink from there.
 
-**Code quality:** Clean and readable. Variable names (`left`, `right`, `distance`,
-`minHeight`, `area`, `maxArea`) make the formula `area = distance * minHeight` self-evident
-without needing the comment. The one comment that is present (`// The minimum height
-decides the next move`) earns its place — it explains *why* the shorter side moves, which
-isn't obvious just from reading `if (heights[left] <= heights[right])`.
+**Code quality:** Clean and readable. Variable names (`left`, `right`, `distance`, `minHeight`, `area`, `maxArea`) make the formula `area = distance * minHeight` self-evident without needing the comment. The one comment that is present (`// The minimum height decides the next move`) earns its place — it explains *why* the shorter side moves, which isn't obvious just from reading `if (heights[left] <= heights[right])`.
 
-**Time complexity:** O(n) — `left` and `right` move toward each other and the loop stops
-the moment they meet, so each index is visited at most once.
+**Time complexity:** O(n) — `left` and `right` move toward each other and the loop stops the moment they meet, so each index is visited at most once.
 
 **Space complexity:** O(1) — only a fixed number of scalar variables regardless of input size.
 
@@ -65,16 +54,9 @@ L=6 R=6 → left == right → loop ends
 
 ## 2. Optimal Approach
 
-This **is** the optimal approach — your solution already implements it. The insight:
-start with the widest possible container (`left = 0`, `right = n - 1`). At each step,
-the container's area is capped by `min(height[left], height[right])`. If you move the
-pointer at the *taller* line inward, the width shrinks and the height stays capped by the
-same (still shorter) line — the area can never improve. So the only pointer worth moving
-is the one at the *shorter* line, since that's the only move with a chance of finding a
-taller boundary. Track the best area seen while the pointers converge.
+This **is** the optimal approach — your solution already implements it. The insight: start with the widest possible container (`left = 0`, `right = n - 1`). At each step, the container's area is capped by `min(height[left], height[right])`. If you move the pointer at the *taller* line inward, the width shrinks and the height stays capped by the same (still shorter) line — the area can never improve. So the only pointer worth moving is the one at the *shorter* line, since that's the only move with a chance of finding a taller boundary. Track the best area seen while the pointers converge.
 
-**Time complexity:** O(n) — each of the `n` lines is examined once as either `left` or
-`right` moves past it.
+**Time complexity:** O(n) — each of the `n` lines is examined once as either `left` or `right` moves past it.
 
 **Space complexity:** O(1) — no auxiliary data structures.
 
@@ -100,22 +82,19 @@ public int maxArea(int[] height) {
 }
 ```
 
-**Algorithm trace:** identical to the trace in section 1 — your implementation already
-follows this exact sequence of moves.
+**Algorithm trace:** identical to the trace in section 1 — your implementation already follows this exact sequence of moves.
 
 ## 3. Alternative Approaches
 
 ### Brute force — check every pair
 
-Try every pair of lines `(i, j)` with `i < j`, compute `min(height[i], height[j]) * (j - i)`
-for each, and keep the maximum. Simple to reason about but doesn't scale.
+Try every pair of lines `(i, j)` with `i < j`, compute `min(height[i], height[j]) * (j - i)` for each, and keep the maximum. Simple to reason about but doesn't scale.
 
 **Time complexity:** O(n^2) — nested loop over all `C(n, 2)` pairs.
 
 **Space complexity:** O(1) — only a running maximum is tracked.
 
-**When acceptable:** Fine for small inputs or as a warm-up/sanity-check solution under
-interview time pressure, but would time out well before `n = 10^5` from the constraints.
+**When acceptable:** Fine for small inputs or as a warm-up/sanity-check solution under interview time pressure, but would time out well before `n = 10^5` from the constraints.
 
 ```java
 public int maxArea(int[] height) {
