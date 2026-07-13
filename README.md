@@ -141,6 +141,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 24 | Merge Two 2D Arrays by Summing Values | Two Pointers | ✅ |
 | 25 | Squares of a Sorted Array | Two Pointers | ✅ |
 | 26 | Assign Cookies | Greedy | ✅ |
+| 27 | Find First Palindromic String in the Array | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
