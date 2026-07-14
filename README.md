@@ -142,6 +142,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 25 | Squares of a Sorted Array | Two Pointers | ✅ |
 | 26 | Assign Cookies | Greedy | ✅ |
 | 27 | Find First Palindromic String in the Array | Two Pointers | ✅ |
+| 28 | Sort Array by Parity | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
