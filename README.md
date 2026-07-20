@@ -144,6 +144,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 27 | Find First Palindromic String in the Array | Two Pointers | ✅ |
 | 28 | Sort Array by Parity | Two Pointers | ✅ |
 | 29 | Reverse Words in a String III | Two Pointers | ✅ |
+| 30 | Backspace String Compare | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
