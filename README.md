@@ -115,36 +115,36 @@ mvn test -Dtest="SolutionTest" -pl .
 
 | # | Problem | Category | Result |
 |---|---------|----------|--------|
-| 01 | Contains Duplicate | Arrays & Hashing | ✅ |
-| 02 | Valid Anagram | Arrays & Hashing | ✅ |
-| 03 | Group Anagrams | Arrays & Hashing | ✅ |
-| 04 | Top K Frequent Elements | Arrays & Hashing | ✅ |
-| 05 | Valid Palindrome | Two Pointers | ✅ |
-| 06 | Two Sum II | Two Pointers | ✅ |
-| 07 | 3Sum | Two Pointers | 💡 |
-| 08 | Number of Islands | Graphs | ✅ |
-| 09 | Path Sum | Trees | ✅ |
-| 10 | Course Schedule | Topological Sort | ✅ |
-| 11 | Course Schedule II | Topological Sort | ✅ |
-| 12 | Merge Intervals | Intervals | ✅ |
-| 13 | Meeting Rooms | Intervals | ✅ |
-| 14 | Binary Tree Level Order Traversal | Trees | ✅ |
-| 15 | Remove Duplicates from Sorted Array | Two Pointers | ✅ |
-| 16 | Middle of the Linked List | Linked List | ✅ |
-| 17 | Move Zeros | Two Pointers | ✅ |
-| 18 | Remove Nth Node From End of List | Linked List | ✅ |
-| 19 | Container With Most Water | Two Pointers | ✅ |
-| 20 | Valid Palindrome II | Two Pointers | ✅ |
-| 21 | Valid Word Abbreviation | Two Pointers | ✅ |
-| 22 | Merge Strings Alternately | Two Pointers | ✅ |
-| 23 | Merge Sorted Array | Two Pointers | ✅ |
-| 24 | Merge Two 2D Arrays by Summing Values | Two Pointers | ✅ |
-| 25 | Squares of a Sorted Array | Two Pointers | ✅ |
-| 26 | Assign Cookies | Greedy | ✅ |
-| 27 | Find First Palindromic String in the Array | Two Pointers | ✅ |
-| 28 | Sort Array by Parity | Two Pointers | ✅ |
-| 29 | Reverse Words in a String III | Two Pointers | ✅ |
-| 30 | Backspace String Compare | Two Pointers | ✅ |
+| 01 | [Contains Duplicate](src/main/java/mx/jovannypcg/base/p01_containsduplicate) | Arrays & Hashing | ✅ |
+| 02 | [Valid Anagram](src/main/java/mx/jovannypcg/base/p02_validanagram) | Arrays & Hashing | ✅ |
+| 03 | [Group Anagrams](src/main/java/mx/jovannypcg/base/p03_groupanagrams) | Arrays & Hashing | ✅ |
+| 04 | [Top K Frequent Elements](src/main/java/mx/jovannypcg/base/p04_topkfrequent) | Arrays & Hashing | ✅ |
+| 05 | [Valid Palindrome](src/main/java/mx/jovannypcg/base/p05_validpalindrome) | Two Pointers | ✅ |
+| 06 | [Two Sum II](src/main/java/mx/jovannypcg/base/p06_twosum2) | Two Pointers | ✅ |
+| 07 | [3Sum](src/main/java/mx/jovannypcg/base/p07_3sum) | Two Pointers | 💡 |
+| 08 | [Number of Islands](src/main/java/mx/jovannypcg/base/p08_numberofislands) | Graphs | ✅ |
+| 09 | [Path Sum](src/main/java/mx/jovannypcg/base/p09_pathsum) | Trees | ✅ |
+| 10 | [Course Schedule](src/main/java/mx/jovannypcg/base/p10_courseschedule) | Topological Sort | ✅ |
+| 11 | [Course Schedule II](src/main/java/mx/jovannypcg/base/p11_courseschedule2) | Topological Sort | ✅ |
+| 12 | [Merge Intervals](src/main/java/mx/jovannypcg/base/p12_mergeintervals) | Intervals | ✅ |
+| 13 | [Meeting Rooms](src/main/java/mx/jovannypcg/base/p13_meetingrooms) | Intervals | ✅ |
+| 14 | [Binary Tree Level Order Traversal](src/main/java/mx/jovannypcg/base/p14_binarytreelevelorder) | Trees | ✅ |
+| 15 | [Remove Duplicates from Sorted Array](src/main/java/mx/jovannypcg/base/p15_removeduplicates) | Two Pointers | ✅ |
+| 16 | [Middle of the Linked List](src/main/java/mx/jovannypcg/base/p16_middleoflinkedlist) | Linked List | ✅ |
+| 17 | [Move Zeros](src/main/java/mx/jovannypcg/base/p17_movezeros) | Two Pointers | ✅ |
+| 18 | [Remove Nth Node From End of List](src/main/java/mx/jovannypcg/base/p18_removenthnode) | Linked List | ✅ |
+| 19 | [Container With Most Water](src/main/java/mx/jovannypcg/base/p19_containerwithmostwater) | Two Pointers | ✅ |
+| 20 | [Valid Palindrome II](src/main/java/mx/jovannypcg/base/p20_validpalindrome2) | Two Pointers | ✅ |
+| 21 | [Valid Word Abbreviation](src/main/java/mx/jovannypcg/base/p21_validwordabbreviation) | Two Pointers | ✅ |
+| 22 | [Merge Strings Alternately](src/main/java/mx/jovannypcg/base/p22_mergestringsalternately) | Two Pointers | ✅ |
+| 23 | [Merge Sorted Array](src/main/java/mx/jovannypcg/base/p23_mergesortedarray) | Two Pointers | ✅ |
+| 24 | [Merge Two 2D Arrays by Summing Values](src/main/java/mx/jovannypcg/base/p24_mergetwo2darrays) | Two Pointers | ✅ |
+| 25 | [Squares of a Sorted Array](src/main/java/mx/jovannypcg/base/p25_squaresofsortedarray) | Two Pointers | ✅ |
+| 26 | [Assign Cookies](src/main/java/mx/jovannypcg/base/p26_assigncookies) | Greedy | ✅ |
+| 27 | [Find First Palindromic String in the Array](src/main/java/mx/jovannypcg/base/p27_firstpalindrome) | Two Pointers | ✅ |
+| 28 | [Sort Array by Parity](src/main/java/mx/jovannypcg/base/p28_sortarraybyparity) | Two Pointers | ✅ |
+| 29 | [Reverse Words in a String III](src/main/java/mx/jovannypcg/base/p29_reversewordsinstring3) | Two Pointers | ✅ |
+| 30 | [Backspace String Compare](src/main/java/mx/jovannypcg/base/p30_backspacestringcompare) | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
