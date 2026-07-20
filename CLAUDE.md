@@ -270,7 +270,7 @@ After completing either the **"Done"** or **"Give up"** flow, rebuild the **Solv
 1. List all subpackages under `mx.jovannypcg.base` (sorted by numeric prefix).
 2. For each subpackage, determine:
    - **#** — the numeric prefix (e.g., `01`)
-   - **Problem** — a human-readable name derived from the package suffix
+   - **Problem** — a human-readable name derived from the package suffix, linked to the problem's directory (e.g., `[Contains Duplicate](src/main/java/mx/jovannypcg/base/p01_containsduplicate)`)
    - **Category** — read from the DSA Category field in `REVIEW.md` or `SOLUTION.md` if present; otherwise leave blank
    - **Result** — `✅` if `REVIEW.md` exists, `💡` if only `SOLUTION.md` exists, `🔄` if neither exists yet (stub only)
 3. Replace the entire Solved Problems table in `README.md` with the rebuilt version.
