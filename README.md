@@ -145,6 +145,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 28 | [Sort Array by Parity](src/main/java/mx/jovannypcg/base/p28_sortarraybyparity) | Two Pointers | ✅ |
 | 29 | [Reverse Words in a String III](src/main/java/mx/jovannypcg/base/p29_reversewordsinstring3) | Two Pointers | ✅ |
 | 30 | [Backspace String Compare](src/main/java/mx/jovannypcg/base/p30_backspacestringcompare) | Two Pointers | ✅ |
+| 31 | [Check if Two String Arrays are Equivalent](src/main/java/mx/jovannypcg/base/p31_arraystringsareequal) | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
