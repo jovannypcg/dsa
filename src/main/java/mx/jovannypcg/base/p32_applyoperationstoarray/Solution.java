@@ -22,9 +22,7 @@ public class Solution {
     public int[] applyOperations(int[] nums) {
         if (nums == null || nums.length == 0) return nums;
 
-        int n = nums.length,
-            zeroIdx = 0,
-            nonZeroIdx = 0;
+        int n = nums.length;
 
         for (int i = 0; i < n - 1; i++) {
             if (nums[i] != nums[i + 1]) continue;

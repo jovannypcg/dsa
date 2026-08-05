@@ -147,6 +147,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 30 | [Backspace String Compare](src/main/java/mx/jovannypcg/base/p30_backspacestringcompare) | Two Pointers | ✅ |
 | 31 | [Check if Two String Arrays are Equivalent](src/main/java/mx/jovannypcg/base/p31_arraystringsareequal) | Two Pointers | ✅ |
 | 32 | [Apply Operations to an Array](src/main/java/mx/jovannypcg/base/p32_applyoperationstoarray) | Arrays & Hashing | ✅ |
+| 33 | [Two Sum Less Than K](src/main/java/mx/jovannypcg/base/p33_twosumlessthank) | Two Pointers | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
