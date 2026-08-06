@@ -148,6 +148,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 31 | [Check if Two String Arrays are Equivalent](src/main/java/mx/jovannypcg/base/p31_arraystringsareequal) | Two Pointers | ✅ |
 | 32 | [Apply Operations to an Array](src/main/java/mx/jovannypcg/base/p32_applyoperationstoarray) | Arrays & Hashing | ✅ |
 | 33 | [Two Sum Less Than K](src/main/java/mx/jovannypcg/base/p33_twosumlessthank) | Two Pointers | ✅ |
+| 34 | [Product of Array Except Self](src/main/java/mx/jovannypcg/base/p34_productofarrayexceptself) | Arrays & Hashing | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
