@@ -149,6 +149,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 32 | [Apply Operations to an Array](src/main/java/mx/jovannypcg/base/p32_applyoperationstoarray) | Arrays & Hashing | ✅ |
 | 33 | [Two Sum Less Than K](src/main/java/mx/jovannypcg/base/p33_twosumlessthank) | Two Pointers | ✅ |
 | 34 | [Product of Array Except Self](src/main/java/mx/jovannypcg/base/p34_productofarrayexceptself) | Arrays & Hashing | ✅ |
+| 35 | [Valid Sudoku](src/main/java/mx/jovannypcg/base/p35_validsudoku) | Arrays & Hashing | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
