@@ -121,7 +121,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 04 | [Top K Frequent Elements](src/main/java/mx/jovannypcg/base/p04_topkfrequent) | Arrays & Hashing | ✅ |
 | 05 | [Valid Palindrome](src/main/java/mx/jovannypcg/base/p05_validpalindrome) | Two Pointers | ✅ |
 | 06 | [Two Sum II](src/main/java/mx/jovannypcg/base/p06_twosum2) | Two Pointers | ✅ |
-| 07 | [3Sum](src/main/java/mx/jovannypcg/base/p07_3sum) | Two Pointers | 💡 |
+| 07 | [3Sum](src/main/java/mx/jovannypcg/base/p07_3sum) | Two Pointers | ✅ |
 | 08 | [Number of Islands](src/main/java/mx/jovannypcg/base/p08_numberofislands) | Graphs | ✅ |
 | 09 | [Path Sum](src/main/java/mx/jovannypcg/base/p09_pathsum) | Trees | ✅ |
 | 10 | [Course Schedule](src/main/java/mx/jovannypcg/base/p10_courseschedule) | Topological Sort | ✅ |

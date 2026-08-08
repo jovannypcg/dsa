@@ -112,4 +112,13 @@ class SolutionTest {
                 .hasSize(1)
                 .containsExactly(List.of(0, 0, 0));
     }
+
+    @Test
+    void tripletNeedsTwoElementsFromLargerDuplicateRun() {
+        var result = solution.threeSum(new int[]{-4, 2, 2, 2, 4});
+
+        assertThat(result)
+                .hasSize(1)
+                .containsExactly(List.of(-4, 2, 2));
+    }
 }
