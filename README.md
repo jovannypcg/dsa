@@ -151,6 +151,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 34 | [Product of Array Except Self](src/main/java/mx/jovannypcg/base/p34_productofarrayexceptself) | Arrays & Hashing | ✅ |
 | 35 | [Valid Sudoku](src/main/java/mx/jovannypcg/base/p35_validsudoku) | Arrays & Hashing | ✅ |
 | 36 | [Longest Consecutive Sequence](src/main/java/mx/jovannypcg/base/p36_longestconsecutivesequence) | Arrays & Hashing | ✅ |
+| 37 | [Reverse Linked List](src/main/java/mx/jovannypcg/base/p37_reverselinkedlist) | Linked List | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
