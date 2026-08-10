@@ -152,6 +152,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 35 | [Valid Sudoku](src/main/java/mx/jovannypcg/base/p35_validsudoku) | Arrays & Hashing | ✅ |
 | 36 | [Longest Consecutive Sequence](src/main/java/mx/jovannypcg/base/p36_longestconsecutivesequence) | Arrays & Hashing | ✅ |
 | 37 | [Reverse Linked List](src/main/java/mx/jovannypcg/base/p37_reverselinkedlist) | Linked List | ✅ |
+| 38 | [Merge Two Sorted Lists](src/main/java/mx/jovannypcg/base/p38_mergetwosortedlists) | Linked List | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
