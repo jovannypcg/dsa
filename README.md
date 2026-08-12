@@ -153,6 +153,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 36 | [Longest Consecutive Sequence](src/main/java/mx/jovannypcg/base/p36_longestconsecutivesequence) | Arrays & Hashing | ✅ |
 | 37 | [Reverse Linked List](src/main/java/mx/jovannypcg/base/p37_reverselinkedlist) | Linked List | ✅ |
 | 38 | [Merge Two Sorted Lists](src/main/java/mx/jovannypcg/base/p38_mergetwosortedlists) | Linked List | ✅ |
+| 39 | [Min Stack](src/main/java/mx/jovannypcg/base/p39_minstack) | Stack | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
