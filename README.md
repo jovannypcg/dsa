@@ -155,6 +155,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 38 | [Merge Two Sorted Lists](src/main/java/mx/jovannypcg/base/p38_mergetwosortedlists) | Linked List | ✅ |
 | 39 | [Min Stack](src/main/java/mx/jovannypcg/base/p39_minstack) | Stack | ✅ |
 | 40 | [Evaluate Reverse Polish Notation](src/main/java/mx/jovannypcg/base/p40_evaluatereversepolishnotation) | Stack | ✅ |
+| 41 | [Search a 2D Matrix](src/main/java/mx/jovannypcg/base/p41_searcha2dmatrix) | Binary Search | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution
 
