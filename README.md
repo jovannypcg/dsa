@@ -157,8 +157,10 @@ mvn test -Dtest="SolutionTest" -pl .
 | 40 | [Evaluate Reverse Polish Notation](src/main/java/mx/jovannypcg/base/p40_evaluatereversepolishnotation) | Stack | ✅ |
 | 41 | [Search a 2D Matrix](src/main/java/mx/jovannypcg/base/p41_searcha2dmatrix) | Binary Search | ✅ |
 | 42 | [Invert Binary Tree](src/main/java/mx/jovannypcg/base/p42_inverttree) | Trees | ✅ |
+| 43 | [Maximum Depth of Binary Tree](src/main/java/mx/jovannypcg/base/p43_maxdepthbinarytree) | | 🔄 |
+| 44 | [Diameter of Binary Tree](src/main/java/mx/jovannypcg/base/p44_diameterofbinarytree) | Trees | ✅ |
 
-✅ = solved independently · 💡 = viewed solution
+✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
 ## Adding a New Exercise with Claude
 
