@@ -160,6 +160,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 43 | [Maximum Depth of Binary Tree](src/main/java/mx/jovannypcg/base/p43_maxdepthbinarytree) | | 🔄 |
 | 44 | [Diameter of Binary Tree](src/main/java/mx/jovannypcg/base/p44_diameterofbinarytree) | Trees | ✅ |
 | 45 | [Balanced Binary Tree](src/main/java/mx/jovannypcg/base/p45_balancedbinarytree) | Trees | ✅ |
+| 46 | [Same Tree](src/main/java/mx/jovannypcg/base/p46_sametree) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
