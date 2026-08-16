@@ -159,6 +159,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 42 | [Invert Binary Tree](src/main/java/mx/jovannypcg/base/p42_inverttree) | Trees | ✅ |
 | 43 | [Maximum Depth of Binary Tree](src/main/java/mx/jovannypcg/base/p43_maxdepthbinarytree) | | 🔄 |
 | 44 | [Diameter of Binary Tree](src/main/java/mx/jovannypcg/base/p44_diameterofbinarytree) | Trees | ✅ |
+| 45 | [Balanced Binary Tree](src/main/java/mx/jovannypcg/base/p45_balancedbinarytree) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
