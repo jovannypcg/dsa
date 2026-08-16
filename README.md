@@ -162,6 +162,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 45 | [Balanced Binary Tree](src/main/java/mx/jovannypcg/base/p45_balancedbinarytree) | Trees | ✅ |
 | 46 | [Same Tree](src/main/java/mx/jovannypcg/base/p46_sametree) | Trees | ✅ |
 | 47 | [Subtree of Another Tree](src/main/java/mx/jovannypcg/base/p47_subtreeofanothertree) | Trees | ✅ |
+| 48 | [Lowest Common Ancestor of a Binary Search Tree](src/main/java/mx/jovannypcg/base/p48_lowestcommonancestorbst) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
