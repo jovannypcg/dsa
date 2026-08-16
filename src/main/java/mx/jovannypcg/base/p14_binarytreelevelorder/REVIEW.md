@@ -2,30 +2,22 @@
 
 | | |
 |---|---|
-| **Solved on** | 2026-06-16 |
+| **Solved on** | 2026-08-16 |
 | **DSA Category** | Trees |
 
 ---
 
 ## 1. Your Solution Assessment
 
-**Correctness:** The solution handles all cases correctly — null root returns an empty list, the level-size snapshot (`int levelSize = queue.size()`) ensures the inner loop processes exactly the current level without bleeding into the next, and both children are enqueued in left-to-right order. All constraints are satisfied.
+**Correctness:** The solution handles all cases correctly — a `null` root short-circuits to `List.of()`, the level-size snapshot (`int levelSize = queue.size()`) ensures the inner loop processes exactly the current level without bleeding into the next, and both children are enqueued in left-to-right order. All constraints (up to 2000 nodes, values in `[-1000, 1000]`) are satisfied.
 
-**Code quality:** Clean and easy to follow. Variable names (`traversal`, `level`, `current`, `levelSize`) communicate intent clearly. Blank line between `level.add` and the child-enqueue block is a nice visual separation of concerns within the inner loop.
+**Code quality:** Clean and easy to follow. Variable names (`traversal`, `level`, `current`, `levelSize`) communicate intent clearly. The blank lines separating the `level.add` call from the child-enqueue block give good visual structure to the inner loop.
 
-**Time complexity: O(n)** — every node is enqueued once and dequeued once, so the total work is linear in the number of nodes.
+**Time complexity: O(n)** — every node is enqueued once and dequeued once, so total work is linear in the number of nodes.
 
-**Space complexity: O(n)** — the queue holds at most one full level at a time. For a complete binary tree, the bottom level can contain up to n/2 nodes, which is O(n). The output list itself also holds all n values.
+**Space complexity: O(n)** — the queue holds at most one full level at a time; for a complete binary tree the bottom level can hold up to n/2 nodes, which is O(n). The output list also holds all n values.
 
 **Algorithm trace** — Input: `root = [3,9,20,null,null,15,7]`
-
-```
-        3
-       / \
-      9   20
-         /  \
-        15    7
-```
 
 ```mermaid
 graph TD

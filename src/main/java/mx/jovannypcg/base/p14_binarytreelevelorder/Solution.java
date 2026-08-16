@@ -31,9 +31,7 @@ public class Solution {
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-        if (root == null) {
-            return List.of();
-        }
+        if (root == null) return List.of();
 
         List<List<Integer>> traversal = new ArrayList<>();
         Deque<TreeNode> queue = new ArrayDeque<>();
@@ -43,7 +41,7 @@ public class Solution {
             int levelSize = queue.size();
             List<Integer> level = new ArrayList<>();
 
-            while (levelSize > 0) {
+            while (levelSize != 0) {
                 TreeNode current = queue.poll();
 
                 level.add(current.val);
