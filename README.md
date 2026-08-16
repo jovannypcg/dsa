@@ -161,6 +161,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 44 | [Diameter of Binary Tree](src/main/java/mx/jovannypcg/base/p44_diameterofbinarytree) | Trees | ✅ |
 | 45 | [Balanced Binary Tree](src/main/java/mx/jovannypcg/base/p45_balancedbinarytree) | Trees | ✅ |
 | 46 | [Same Tree](src/main/java/mx/jovannypcg/base/p46_sametree) | Trees | ✅ |
+| 47 | [Subtree of Another Tree](src/main/java/mx/jovannypcg/base/p47_subtreeofanothertree) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
