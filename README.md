@@ -163,6 +163,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 46 | [Same Tree](src/main/java/mx/jovannypcg/base/p46_sametree) | Trees | ✅ |
 | 47 | [Subtree of Another Tree](src/main/java/mx/jovannypcg/base/p47_subtreeofanothertree) | Trees | ✅ |
 | 48 | [Lowest Common Ancestor of a Binary Search Tree](src/main/java/mx/jovannypcg/base/p48_lowestcommonancestorbst) | Trees | ✅ |
+| 49 | [Binary Tree Right Side View](src/main/java/mx/jovannypcg/base/p49_binarytreerightsideview) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
