@@ -166,6 +166,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 49 | [Binary Tree Right Side View](src/main/java/mx/jovannypcg/base/p49_binarytreerightsideview) | Trees | ✅ |
 | 50 | [Generate All Binary Strings](src/main/java/mx/jovannypcg/base/p50_generateallbinarystrings) | Backtracking | ✅ |
 | 51 | [Subsets](src/main/java/mx/jovannypcg/base/p51_subsets) | Backtracking | ✅ |
+| 52 | [Combination Sum](src/main/java/mx/jovannypcg/base/p52_combinationsum) | Backtracking | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
