@@ -9,7 +9,7 @@
 
 **Code quality:** Clean and readable, and the push/recurse/pop/skip-duplicates/recurse structure is the right shape for this problem. Two small nits: `combinations.add(...)` for the `sum == target` case appears twice — once in the `idx >= candidates.length` guard, once in the main `if/else if/else` chain — which is exactly the redundancy flagged below. Separately, `Arrays.sort(candidates)` mutates the caller's array in place; harmless for this exercise, but worth being aware of as a side effect on the input.
 
-**Time complexity:** O(2^N), where N is `candidates.length`. Each recursion level branches in exactly two directions — "include `candidates[idx]`" or "exclude it and every duplicate of it" — so the call tree has at most 2^N leaves; the `sum > target` prune cuts this in practice but not in the worst-case bound.
+**Time complexity:** O(N log N + N · 2^N) = O(N · 2^N), where N is `candidates.length`. Sorting is O(N log N). Each recursion level branches in exactly two directions — "include `candidates[idx]`" or "exclude it and every duplicate of it" — so the call tree has at most 2^N leaves, each doing O(1) work; the `sum > target` prune cuts this in practice but not in the worst-case bound. On top of that, every time a match is found, `new ArrayList<>(combination)` copies up to N elements, and up to O(2^N) matches can be found in the worst case — that copy cost is what pushes the bound from O(2^N) to O(N · 2^N), and it dominates the sort.
 
 **Space complexity:** O(N) for the recursion stack and the `combination` deque, bounded by the array length — this excludes the space needed for the output list itself.
 
@@ -105,7 +105,7 @@ private void backtrack(
 }
 ```
 
-**Time complexity:** O(2^N) — same bound as above; this is the inherent cost of the search space, not something a smarter algorithm can avoid. The `i > start && candidates[i] == candidates[i - 1]` skip and the `break` on overshoot reduce the constant factor but not the worst case.
+**Time complexity:** O(N · 2^N) — same bound as above, for the same reason (up to O(2^N) matches, each costing O(N) to copy into the output); this is the inherent cost of the search space, not something a smarter algorithm can avoid. The `i > start && candidates[i] == candidates[i - 1]` skip and the `break` on overshoot reduce the constant factor but not the worst case.
 
 **Space complexity:** O(N) for the recursion stack and `combination`, excluding the output.
 
@@ -171,7 +171,7 @@ private void backtrack(
 }
 ```
 
-**Time complexity:** Bounded by the same O(2^N) worst case (all distinct values collapses this back to the plain include/exclude tree), but when the input has many duplicates — likely given the constraints (`candidates[i] <= 50`, length up to `100`) — the branching factor per distinct value shrinks the practical search space well below the index-based versions.
+**Time complexity:** Bounded by the same O(N · 2^N) worst case (all distinct values collapses this back to the plain include/exclude tree, with the same O(N) copy cost per match), but when the input has many duplicates — likely given the constraints (`candidates[i] <= 50`, length up to `100`) — the branching factor per distinct value shrinks the practical search space well below the index-based versions.
 **Space complexity:** O(D) for the grouping map (D = number of distinct values) plus O(N) recursion depth, excluding the output.
 **When acceptable:** Whenever the "how many of this value do I use" framing is more natural than "skip past equal indices" — it also sets up cleanly for a follow-up like "count the combinations" (the `TreeMap` becomes the input to a DP over counts instead of a full enumeration).
 
