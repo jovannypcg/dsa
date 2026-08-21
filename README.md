@@ -169,6 +169,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 52 | [Combination Sum](src/main/java/mx/jovannypcg/base/p52_combinationsum) | Backtracking | ✅ |
 | 53 | [Combination Sum II](src/main/java/mx/jovannypcg/base/p53_combinationsum2) | Backtracking | ✅ |
 | 54 | [Permutations](src/main/java/mx/jovannypcg/base/p54_permutations) | Backtracking | ✅ |
+| 55 | [Subsets II](src/main/java/mx/jovannypcg/base/p55_subsets2) | Backtracking | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
