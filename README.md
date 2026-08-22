@@ -171,6 +171,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 54 | [Permutations](src/main/java/mx/jovannypcg/base/p54_permutations) | Backtracking | ✅ |
 | 55 | [Subsets II](src/main/java/mx/jovannypcg/base/p55_subsets2) | Backtracking | ✅ |
 | 56 | [Generate Parentheses](src/main/java/mx/jovannypcg/base/p56_generateparentheses) | Backtracking | ✅ |
+| 57 | [Word Search](src/main/java/mx/jovannypcg/base/p57_wordsearch) | Backtracking | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
