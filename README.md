@@ -173,6 +173,8 @@ mvn test -Dtest="SolutionTest" -pl .
 | 56 | [Generate Parentheses](src/main/java/mx/jovannypcg/base/p56_generateparentheses) | Backtracking | ✅ |
 | 57 | [Word Search](src/main/java/mx/jovannypcg/base/p57_wordsearch) | Backtracking | ✅ |
 | 58 | [LRU Cache](src/main/java/mx/jovannypcg/base/p58_lrucache) | Linked List | ✅ |
+| 59 | [Kth Largest Element in a Stream](src/main/java/mx/jovannypcg/base/p59_kthlargestelementinastream) | Heap / Priority Queue | ✅ |
+| 60 | [Kth Smallest Element in a Stream](src/main/java/mx/jovannypcg/base/p60_kthsmallestelementinastream) | Heap / Priority Queue | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
