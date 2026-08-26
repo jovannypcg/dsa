@@ -175,6 +175,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 58 | [LRU Cache](src/main/java/mx/jovannypcg/base/p58_lrucache) | Linked List | ✅ |
 | 59 | [Kth Largest Element in a Stream](src/main/java/mx/jovannypcg/base/p59_kthlargestelementinastream) | Heap / Priority Queue | ✅ |
 | 60 | [Kth Smallest Element in a Stream](src/main/java/mx/jovannypcg/base/p60_kthsmallestelementinastream) | Heap / Priority Queue | ✅ |
+| 61 | [Implement Trie (Prefix Tree)](src/main/java/mx/jovannypcg/base/p61_implementtrie) | Tries | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
