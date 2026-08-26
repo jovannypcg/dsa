@@ -177,6 +177,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 60 | [Kth Smallest Element in a Stream](src/main/java/mx/jovannypcg/base/p60_kthsmallestelementinastream) | Heap / Priority Queue | ✅ |
 | 61 | [Implement Trie (Prefix Tree)](src/main/java/mx/jovannypcg/base/p61_implementtrie) | Tries | ✅ |
 | 62 | [Last Stone Weight](src/main/java/mx/jovannypcg/base/p62_laststoneweight) | Heap / Priority Queue | ✅ |
+| 63 | [Count Good Nodes in Binary Tree](src/main/java/mx/jovannypcg/base/p63_countgoodnodesinbinarytree) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
