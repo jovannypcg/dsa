@@ -164,7 +164,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 47 | [Subtree of Another Tree](src/main/java/mx/jovannypcg/base/p47_subtreeofanothertree) | Trees | ✅ |
 | 48 | [Lowest Common Ancestor of a Binary Search Tree](src/main/java/mx/jovannypcg/base/p48_lowestcommonancestorbst) | Trees | ✅ |
 | 49 | [Binary Tree Right Side View](src/main/java/mx/jovannypcg/base/p49_binarytreerightsideview) | Trees | ✅ |
-| 50 | [Generate All Binary Strings](src/main/java/mx/jovannypcg/base/p50_generateallbinarystrings) | Backtracking | ✅ |
+| 50 | [Generate All Binary Strings (A/B)](src/main/java/mx/jovannypcg/base/p50_generateallbinarystrings) | Backtracking | ✅ |
 | 51 | [Subsets](src/main/java/mx/jovannypcg/base/p51_subsets) | Backtracking | ✅ |
 | 52 | [Combination Sum](src/main/java/mx/jovannypcg/base/p52_combinationsum) | Backtracking | ✅ |
 | 53 | [Combination Sum II](src/main/java/mx/jovannypcg/base/p53_combinationsum2) | Backtracking | ✅ |
@@ -181,6 +181,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 64 | [Validate Binary Search Tree](src/main/java/mx/jovannypcg/base/p64_validatebinarysearchtree) | Trees | ✅ |
 | 65 | [Kth Smallest Element in a BST](src/main/java/mx/jovannypcg/base/p65_kthsmallestelementinabst) | Trees | ✅ |
 | 66 | [Shortest Path in Binary Matrix](src/main/java/mx/jovannypcg/base/p66_shortestpathinbinarymatrix) | Graphs | ✅ |
+| 67 | [Max Area of Island](src/main/java/mx/jovannypcg/base/p67_maxareaofisland) | Graphs | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 

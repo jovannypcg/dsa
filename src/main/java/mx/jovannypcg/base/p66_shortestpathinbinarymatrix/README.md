@@ -27,24 +27,16 @@ Explanation: The only way from (0,0) to (1,1) is the diagonal step between them,
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["0"]
-        r0c1["1"]
-    end
-    subgraph Row1[" "]
-        direction LR
-        r1c0["1"]
-        r1c1["0"]
-    end
-    Row0 ~~~ Row1
-    r0c0 -->|"1"| r1c1
+block-beta
+columns 2
+    r0c0["0 (1)"] r0c1["1"]
+    r1c0["1"] r1c1["0 (2)"]
     classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
     classDef one fill:#333,stroke:#000,color:#fff
     classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
-    class r0c0,r1c1 path
+    classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c1,r1c0 one
+    class r0c0,r1c1 path
 ```
 
 **Example 2**
@@ -55,35 +47,18 @@ Explanation: The path goes right, then diagonally down-right, then straight down
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["0"]
-        r0c1["0"]
-        r0c2["0"]
-    end
-    subgraph Row1[" "]
-        direction LR
-        r1c0["1"]
-        r1c1["1"]
-        r1c2["0"]
-    end
-    subgraph Row2[" "]
-        direction LR
-        r2c0["1"]
-        r2c1["1"]
-        r2c2["0"]
-    end
-    Row0 ~~~ Row1 ~~~ Row2
-    r0c0 -->|"1"| r0c1
-    r0c1 -->|"2"| r1c2
-    r1c2 -->|"3"| r2c2
+block-beta
+columns 3
+    r0c0["0 (1)"] r0c1["0 (2)"] r0c2["0"]
+    r1c0["1"] r1c1["1"] r1c2["0 (3)"]
+    r2c0["1"] r2c1["1"] r2c2["0 (4)"]
     classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
     classDef one fill:#333,stroke:#000,color:#fff
     classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
-    class r0c0,r0c1,r1c2,r2c2 path
+    classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c2 zero
     class r1c0,r1c1,r2c0,r2c1 one
+    class r0c0,r0c1,r1c2,r2c2 path
 ```
 
 **Example 3**
@@ -94,32 +69,18 @@ Explanation: The start cell (0,0) is itself a 1, so no clear path can begin. No 
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["1"]
-        r0c1["0"]
-        r0c2["0"]
-    end
-    subgraph Row1[" "]
-        direction LR
-        r1c0["1"]
-        r1c1["1"]
-        r1c2["0"]
-    end
-    subgraph Row2[" "]
-        direction LR
-        r2c0["1"]
-        r2c1["1"]
-        r2c2["0"]
-    end
-    Row0 ~~~ Row1 ~~~ Row2
+block-beta
+columns 3
+    r0c0["1"] r0c1["0"] r0c2["0"]
+    r1c0["1"] r1c1["1"] r1c2["0"]
+    r2c0["1"] r2c1["1"] r2c2["0"]
     classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
     classDef one fill:#333,stroke:#000,color:#fff
+    classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
     classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
-    class r0c0 blocked
     class r0c1,r0c2,r1c2,r2c2 zero
     class r1c0,r1c1,r2c0,r2c1 one
+    class r0c0 blocked
 ```
 
 **Example 4**
@@ -130,12 +91,13 @@ Explanation: The grid is a single cell, and it is open. The start and end are th
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["0"]
-    end
+block-beta
+columns 1
+    r0c0["0 (1)"]
+    classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
+    classDef one fill:#333,stroke:#000,color:#fff
     classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
+    classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c0 path
 ```
 
@@ -147,11 +109,12 @@ Explanation: The grid is a single cell, but it is blocked. There is no way to fo
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["1"]
-    end
+block-beta
+columns 1
+    r0c0["1"]
+    classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
+    classDef one fill:#333,stroke:#000,color:#fff
+    classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
     classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c0 blocked
 ```
@@ -164,32 +127,17 @@ Explanation: With no obstacles, the shortest path is the straight diagonal (0,0)
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["0"]
-        r0c1["0"]
-        r0c2["0"]
-    end
-    subgraph Row1[" "]
-        direction LR
-        r1c0["0"]
-        r1c1["0"]
-        r1c2["0"]
-    end
-    subgraph Row2[" "]
-        direction LR
-        r2c0["0"]
-        r2c1["0"]
-        r2c2["0"]
-    end
-    Row0 ~~~ Row1 ~~~ Row2
-    r0c0 -->|"1"| r1c1
-    r1c1 -->|"2"| r2c2
+block-beta
+columns 3
+    r0c0["0 (1)"] r0c1["0"] r0c2["0"]
+    r1c0["0"] r1c1["0 (2)"] r1c2["0"]
+    r2c0["0"] r2c1["0"] r2c2["0 (3)"]
     classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
+    classDef one fill:#333,stroke:#000,color:#fff
     classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
-    class r0c0,r1c1,r2c2 path
+    classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c1,r0c2,r1c0,r1c2,r2c0,r2c1 zero
+    class r0c0,r1c1,r2c2 path
 ```
 
 **Example 7**
@@ -200,46 +148,19 @@ Explanation: The direct diagonal (0,0) → (1,1) → (2,2) → (3,3) is blocked 
 ```
 
 ```mermaid
-flowchart TD
-    subgraph Row0[" "]
-        direction LR
-        r0c0["0"]
-        r0c1["0"]
-        r0c2["0"]
-        r0c3["0"]
-    end
-    subgraph Row1[" "]
-        direction LR
-        r1c0["1"]
-        r1c1["1"]
-        r1c2["0"]
-        r1c3["1"]
-    end
-    subgraph Row2[" "]
-        direction LR
-        r2c0["0"]
-        r2c1["0"]
-        r2c2["0"]
-        r2c3["0"]
-    end
-    subgraph Row3[" "]
-        direction LR
-        r3c0["0"]
-        r3c1["1"]
-        r3c2["1"]
-        r3c3["0"]
-    end
-    Row0 ~~~ Row1 ~~~ Row2 ~~~ Row3
-    r0c0 -->|"1"| r0c1
-    r0c1 -->|"2"| r1c2
-    r1c2 -->|"3"| r2c2
-    r2c2 -->|"4"| r3c3
+block-beta
+columns 4
+    r0c0["0 (1)"] r0c1["0 (2)"] r0c2["0"] r0c3["0"]
+    r1c0["1"] r1c1["1"] r1c2["0 (3)"] r1c3["1"]
+    r2c0["0"] r2c1["0"] r2c2["0 (4)"] r2c3["0"]
+    r3c0["0"] r3c1["1"] r3c2["1"] r3c3["0 (5)"]
     classDef zero fill:#eef6ff,stroke:#8fb8e0,color:#123
     classDef one fill:#333,stroke:#000,color:#fff
     classDef path fill:#8fe38f,stroke:#1a7a1a,stroke-width:3px,color:#000
-    class r0c0,r0c1,r1c2,r2c2,r3c3 path
+    classDef blocked fill:#e38f8f,stroke:#a11111,stroke-width:3px,color:#000
     class r0c2,r0c3,r2c0,r2c1,r2c3,r3c0 zero
     class r1c0,r1c1,r1c3,r3c1,r3c2 one
+    class r0c0,r0c1,r1c2,r2c2,r3c3 path
 ```
 
 ## Constraints
