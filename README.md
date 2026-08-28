@@ -182,6 +182,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 65 | [Kth Smallest Element in a BST](src/main/java/mx/jovannypcg/base/p65_kthsmallestelementinabst) | Trees | ✅ |
 | 66 | [Shortest Path in Binary Matrix](src/main/java/mx/jovannypcg/base/p66_shortestpathinbinarymatrix) | Graphs | ✅ |
 | 67 | [Max Area of Island](src/main/java/mx/jovannypcg/base/p67_maxareaofisland) | Graphs | ✅ |
+| 68 | [Clone Graph](src/main/java/mx/jovannypcg/base/p68_clonegraph) | Graphs | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
