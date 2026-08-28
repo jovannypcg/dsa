@@ -180,6 +180,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 63 | [Count Good Nodes in Binary Tree](src/main/java/mx/jovannypcg/base/p63_countgoodnodesinbinarytree) | Trees | ✅ |
 | 64 | [Validate Binary Search Tree](src/main/java/mx/jovannypcg/base/p64_validatebinarysearchtree) | Trees | ✅ |
 | 65 | [Kth Smallest Element in a BST](src/main/java/mx/jovannypcg/base/p65_kthsmallestelementinabst) | Trees | ✅ |
+| 66 | [Shortest Path in Binary Matrix](src/main/java/mx/jovannypcg/base/p66_shortestpathinbinarymatrix) | Graphs | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
