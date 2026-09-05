@@ -184,6 +184,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 67 | [Max Area of Island](src/main/java/mx/jovannypcg/base/p67_maxareaofisland) | Graphs | ✅ |
 | 68 | [Clone Graph](src/main/java/mx/jovannypcg/base/p68_clonegraph) | Graphs | ✅ |
 | 69 | [Islands and Treasures](src/main/java/mx/jovannypcg/base/p69_islandsandtreasures) | Graphs | ✅ |
+| 70 | [Rotting Oranges](src/main/java/mx/jovannypcg/base/p70_rottingoranges) | Graphs | 💡 |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
