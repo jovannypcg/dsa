@@ -187,6 +187,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 70 | [Rotting Oranges](src/main/java/mx/jovannypcg/base/p70_rottingoranges) | Graphs | 💡 |
 | 71 | [Fibonacci Number](src/main/java/mx/jovannypcg/base/p71_fibonaccinumber) | 1-D Dynamic Programming | ✅ |
 | 72 | [Climbing Stairs](src/main/java/mx/jovannypcg/base/p72_climbingstairs) | 1-D Dynamic Programming | ✅ |
+| 73 | [Min Cost Climbing Stairs](src/main/java/mx/jovannypcg/base/p73_mincostclimbingstairs) | 1-D Dynamic Programming | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
