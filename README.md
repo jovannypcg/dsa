@@ -190,6 +190,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 73 | [Min Cost Climbing Stairs](src/main/java/mx/jovannypcg/base/p73_mincostclimbingstairs) | 1-D Dynamic Programming | ✅ |
 | 74 | [House Robber](src/main/java/mx/jovannypcg/base/p74_houserobber) | 1-D Dynamic Programming | ✅ |
 | 75 | [Leaf-Similar Trees](src/main/java/mx/jovannypcg/base/p75_leafsimilartrees) | Trees | ✅ |
+| 76 | [Leaf-Concatenated Tree Equality](src/main/java/mx/jovannypcg/base/p76_leafconcatenatedtreeequality) | Trees | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
