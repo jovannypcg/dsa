@@ -191,6 +191,8 @@ mvn test -Dtest="SolutionTest" -pl .
 | 74 | [House Robber](src/main/java/mx/jovannypcg/base/p74_houserobber) | 1-D Dynamic Programming | ✅ |
 | 75 | [Leaf-Similar Trees](src/main/java/mx/jovannypcg/base/p75_leafsimilartrees) | Trees | ✅ |
 | 76 | [Leaf-Concatenated Tree Equality](src/main/java/mx/jovannypcg/base/p76_leafconcatenatedtreeequality) | Trees | ✅ |
+| 77 | [Network Delay Time](src/main/java/mx/jovannypcg/base/p77_networkdelaytime) |  | 🔄 |
+| 78 | [Rotate Image](src/main/java/mx/jovannypcg/base/p78_rotateimage) | Arrays & Hashing | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
