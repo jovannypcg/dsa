@@ -193,6 +193,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 76 | [Leaf-Concatenated Tree Equality](src/main/java/mx/jovannypcg/base/p76_leafconcatenatedtreeequality) | Trees | ✅ |
 | 77 | [Network Delay Time](src/main/java/mx/jovannypcg/base/p77_networkdelaytime) |  | 🔄 |
 | 78 | [Rotate Image](src/main/java/mx/jovannypcg/base/p78_rotateimage) | Arrays & Hashing | ✅ |
+| 79 | [Spiral Matrix](src/main/java/mx/jovannypcg/base/p79_spiralmatrix) | Arrays & Hashing | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
