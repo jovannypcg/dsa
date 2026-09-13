@@ -195,6 +195,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 78 | [Rotate Image](src/main/java/mx/jovannypcg/base/p78_rotateimage) | Arrays & Hashing | ✅ |
 | 79 | [Spiral Matrix](src/main/java/mx/jovannypcg/base/p79_spiralmatrix) | Arrays & Hashing | ✅ |
 | 80 | [Spiral Matrix II](src/main/java/mx/jovannypcg/base/p80_spiralmatrixii) | Arrays & Hashing | ✅ |
+| 81 | [Topological Sort (Kahn's Algorithm)](src/main/java/mx/jovannypcg/base/p81_topologicalsort) | Topological Sort | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
