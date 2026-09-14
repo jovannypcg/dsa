@@ -1,9 +1,10 @@
 package mx.jovannypcg.base.p10_courseschedule;
 
-import java.util.Map;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Given {@code numCourses} courses labeled from {@code 0} to {@code numCourses - 1} and an array
@@ -14,48 +15,52 @@ import java.util.ArrayList;
  * @see <a href="https://leetcode.com/problems/course-schedule/">Course Schedule - LeetCode</a>
  */
 public class Solution {
+
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        Map<Integer, List<Integer>> graph = buildGraph(numCourses, prerequisites);
-        char[] visited = new char[numCourses];
+        var graph = buildGraph(prerequisites);
+        var inDegrees = getInDegrees(numCourses, prerequisites);
+        var queue = new ArrayDeque<Integer>();
+        int netCourses = 0;
+
+        for (int vertex = 0; vertex < numCourses; vertex++) {
+            if (inDegrees[vertex] == 0) queue.offer(vertex);
+        }
+
+        while (!queue.isEmpty()) {
+            int vertex = queue.poll();
+            netCourses++;
+
+            for (int neighbor : graph.getOrDefault(vertex, List.of())) {
+                inDegrees[neighbor]--;
+
+                if (inDegrees[neighbor] == 0) queue.offer(neighbor);
+            }
+        }
+
+        return netCourses == numCourses;
+    }
+
+    private int[] getInDegrees(int numCourses, int[][] prerequisites) {
+        int[] inDegrees = new int[numCourses];
 
         for (int[] prerequisite : prerequisites) {
-            if (!canFinish(graph, visited, prerequisite[0])) {
-                return false;
-            }
+            int v = prerequisite[0];
+
+            inDegrees[v]++;
         }
 
-        return true;
+        return inDegrees;
     }
 
-    boolean canFinish(Map<Integer, List<Integer>> graph, char[] visited, int visiting) {
-        visited[visiting] = '*';
-
-        for (int prerequisite : graph.get(visiting)) {
-            if (visited[prerequisite] == '*') return false; // cycle detected
-            if (visited[prerequisite] == 'v') continue; // prerequisite already visited
-
-            if (!canFinish(graph, visited, prerequisite)) {
-                return false;
-            }
-        }
-
-        visited[visiting] = 'v';
-
-        return true;
-    }
-
-    Map<Integer, List<Integer>> buildGraph(int numCourses, int[][] prerequisites) {
-        if (prerequisites == null || prerequisites.length == 0)
-            return Map.of();
-
+    private Map<Integer, List<Integer>> buildGraph(int[][] edges) {
         Map<Integer, List<Integer>> graph = new HashMap<>();
 
-        for (int i = 0; i < numCourses; i++) {
-            graph.put(i, new ArrayList<>());
-        }
+        for (int[] edge : edges) {
+            int u = edge[1];
+            int v = edge[0];
 
-        for (int[] prerequisite : prerequisites) {
-            graph.get(prerequisite[0]).add(prerequisite[1]);
+            graph.putIfAbsent(u, new ArrayList<>());
+            graph.get(u).add(v);
         }
 
         return graph;

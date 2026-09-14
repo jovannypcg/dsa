@@ -1,11 +1,8 @@
 package mx.jovannypcg.base.p10_courseschedule;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
-import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -18,56 +15,98 @@ class SolutionTest {
         solution = new Solution();
     }
 
-    static Stream<Arguments> cases() {
-        return Stream.of(
-                // happy path: simple valid ordering
-                Arguments.of(2, new int[][]{{1, 0}}, true),
+    @Test
+    @DisplayName("simple valid ordering, one prerequisite -> true")
+    void simpleValidOrdering() {
+        boolean result = solution.canFinish(2, new int[][]{{1, 0}});
 
-                // cycle between two courses
-                Arguments.of(2, new int[][]{{1, 0}, {0, 1}}, false),
-
-                // no prerequisites at all — always possible
-                Arguments.of(1, new int[][]{}, true),
-                Arguments.of(2000, new int[][]{}, true),
-
-                // single course, no prerequisites
-                Arguments.of(1, new int[][]{}, true),
-
-                // linear chain with no cycle
-                Arguments.of(4, new int[][]{{1, 0}, {2, 1}, {3, 2}}, true),
-
-                // three-node cycle
-                Arguments.of(3, new int[][]{{0, 1}, {1, 2}, {2, 0}}, false),
-
-                // multiple prerequisites converging — no cycle
-                Arguments.of(3, new int[][]{{0, 1}, {0, 2}, {1, 2}}, true),
-
-                // disconnected graph, all acyclic
-                Arguments.of(4, new int[][]{{1, 0}, {3, 2}}, true),
-
-                // disconnected graph, one component has a cycle
-                Arguments.of(4, new int[][]{{1, 0}, {0, 1}, {3, 2}}, false),
-
-                // self-loop (ai == bi) — immediate cycle
-                Arguments.of(2, new int[][]{{0, 0}}, false),
-
-                // large linear chain (boundary: 2000 courses)
-                buildLinearChain(2000)
-        );
+        assertThat(result).isTrue();
     }
 
-    /** Builds a case with a linear chain: 0->1->2->...->n-1 (no cycle). */
-    private static Arguments buildLinearChain(int n) {
-        int[][] prereqs = new int[n - 1][2];
-        for (int i = 0; i < n - 1; i++) {
-            prereqs[i] = new int[]{i + 1, i};
+    @Test
+    @DisplayName("cycle between two courses -> false")
+    void cycleBetweenTwoCourses() {
+        boolean result = solution.canFinish(2, new int[][]{{1, 0}, {0, 1}});
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("single course, no prerequisites -> true")
+    void singleCourseNoPrerequisites() {
+        boolean result = solution.canFinish(1, new int[][]{});
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("many courses, no prerequisites at all -> true")
+    void manyCoursesNoPrerequisites() {
+        boolean result = solution.canFinish(2000, new int[][]{});
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("linear chain with no cycle -> true")
+    void linearChainNoCycle() {
+        boolean result = solution.canFinish(4, new int[][]{{1, 0}, {2, 1}, {3, 2}});
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("three-node cycle -> false")
+    void threeNodeCycle() {
+        boolean result = solution.canFinish(3, new int[][]{{0, 1}, {1, 2}, {2, 0}});
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("multiple prerequisites converging, no cycle -> true")
+    void multiplePrerequisitesConverging() {
+        boolean result = solution.canFinish(3, new int[][]{{0, 1}, {0, 2}, {1, 2}});
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("disconnected graph, all components acyclic -> true")
+    void disconnectedGraphAllAcyclic() {
+        boolean result = solution.canFinish(4, new int[][]{{1, 0}, {3, 2}});
+
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("disconnected graph, one component has a cycle -> false")
+    void disconnectedGraphOneComponentHasCycle() {
+        boolean result = solution.canFinish(4, new int[][]{{1, 0}, {0, 1}, {3, 2}});
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("self-loop (ai == bi) -> false")
+    void selfLoop() {
+        boolean result = solution.canFinish(2, new int[][]{{0, 0}});
+
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("boundary: large linear chain of 2000 courses -> true")
+    void largeLinearChainBoundary() {
+        int numCourses = 2000;
+        int[][] prerequisites = new int[numCourses - 1][2];
+
+        for (int i = 0; i < numCourses - 1; i++) {
+            prerequisites[i] = new int[]{i + 1, i};
         }
-        return Arguments.of(n, prereqs, true);
-    }
 
-    @ParameterizedTest
-    @MethodSource("cases")
-    void canFinish(int numCourses, int[][] prerequisites, boolean expected) {
-        assertThat(solution.canFinish(numCourses, prerequisites)).isEqualTo(expected);
+        boolean result = solution.canFinish(numCourses, prerequisites);
+
+        assertThat(result).isTrue();
     }
 }

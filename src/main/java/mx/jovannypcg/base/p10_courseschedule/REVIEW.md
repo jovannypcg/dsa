@@ -1,163 +1,136 @@
-# Course Schedule — Review
-
 | | |
 |---|---|
-| **Solved on** | 2026-06-14 |
+| **Solved on** | 2026-09-13 |
 | **DSA Category** | Graphs |
-
----
 
 ## 1. Your Solution Assessment
 
-### Correctness
-The solution is correct. The three-state DFS approach (`'\0'` → unvisited, `'*'` → on the current stack, `'v'` → fully processed) is the standard cycle-detection pattern, and you applied it accurately. The critical fix from your earlier bug — moving `visited[visiting] = 'v'` to *after* the recursive calls rather than leaving it missing — is exactly right. Without that line, nodes would be re-explored on every DFS call from a different entry point, causing false negatives for acyclic graphs.
+**Correctness:** The implementation uses Kahn's algorithm (BFS-based topological sort). It builds an adjacency list from prerequisite edges, computes in-degrees for every course, seeds a queue with all zero-in-degree courses, then repeatedly polls a course, counts it as completed, and decrements the in-degree of its dependents — enqueueing any that drop to zero. If the number of processed courses equals `numCourses`, no cycle blocks completion. This correctly handles all the required cases: simple chains, converging prerequisites, disconnected components, self-loops (a course pointing to itself never reaches in-degree 0 unless processed, and a self-loop keeps its own in-degree at 1 forever), and courses with zero prerequisites (all seeded immediately). All 11 tests pass, including the boundary case of `numCourses = 2000`.
 
-One subtle correctness note: `buildGraph` returns `Map.of()` (an empty immutable map) when there are no prerequisites, but the outer loop in `canFinish` iterates over `prerequisites` (the array), not the map's keys. When `prerequisites` is empty the loop body never executes, so `graph.get(visiting)` is never called on the empty map — this avoids a `NullPointerException`. It works, but it is a fragile dependency between the two methods.
+**Code quality:** Clear separation of concerns — `buildGraph` and `getInDegrees` are extracted as private helpers with single responsibilities, and `canFinish` reads as a straightforward orchestration of the three phases (seed, process, verify). Variable names (`inDegrees`, `netCourses`, `neighbor`) are descriptive. One nitpick: `netCourses` is a slightly unusual name for "courses successfully processed" — `completedCourses` would read more clearly at the call site.
 
-### Code Quality
-- **Naming**: `visiting` as the parameter name for the current node being processed is clear and communicates the three-state intent well.
-- **`buildGraph` early return**: Returning `Map.of()` for the no-prerequisites case makes `buildGraph`'s contract inconsistent — it normally returns a map with all `numCourses` nodes, but in this branch it returns an empty map.
-- **Entry-point iteration**: Iterating over `prerequisites` to choose DFS starting nodes works, but only starts DFS from nodes that appear as a dependent. Iterating over all `numCourses` nodes is the more conventional and self-documenting pattern.
+**Time complexity:** O(V + E), where V = `numCourses` and E = `prerequisites.length`. Building the graph and in-degree array is O(E), seeding the queue is O(V), and the BFS loop visits every vertex once and every edge once.
 
-### Time Complexity — O(V + E)
-Each node is fully processed at most once (the `'v'` check short-circuits re-entry), and each edge is traversed at most once. `V = numCourses`, `E = prerequisites.length`.
+**Space complexity:** O(V + E) — the adjacency list stores E entries across V keys, and the in-degree array and queue are each O(V).
 
-### Space Complexity — O(V + E)
-Adjacency list: O(E). `visited` array: O(V). DFS call stack: at most O(V) deep in the worst case.
+**Algorithm trace** (Example 4 from `README.md`: `numCourses = 3, prerequisites = [[0,1],[0,2],[1,2]]`, expected `true`)
 
-**Algorithm trace** — Input: `numCourses = 4, prerequisites = [[1,0],[2,1],[3,2]]`
-
-Graph: 0→1→2→3 (linear chain, no cycle)
+Graph built (edge `[a, b]` → arrow `b → a`): `2 → 0`, `2 → 1`, `1 → 0`. Initial in-degrees: `course0=2, course1=1, course2=0`. Queue seeds with course `2` (only zero in-degree course).
 
 ```mermaid
 graph LR
-    A((0)) -->|"step 1 — visiting"| B((1))
-    B -->|"step 2 — visiting"| C((2))
-    C -->|"step 3 — visiting"| D((3))
-    D -->|"step 4 — no neighbors, mark visited"| D
-    C -->|"step 5 — mark visited"| C
-    B -->|"step 6 — mark visited"| B
-    A -->|"step 7 — mark visited"| A
+    N2["course 2 (visit order 1)"] -->|"step 1: in-degree 0→0, dequeue"| N0["course 0 (visit order 3)"]
+    N2 -->|"step 1: in-degree 1→0, enqueue"| N1["course 1 (visit order 2)"]
+    N1 -->|"step 2: in-degree 1→0, enqueue"| N0
 ```
 
-No back edge encountered → return `true`
+- Step 1: dequeue `2` → `netCourses = 1`. Decrement `0` (2→1, no enqueue) and `1` (1→0, enqueue). Queue: `[1]`.
+- Step 2: dequeue `1` → `netCourses = 2`. Decrement `0` (1→0, enqueue). Queue: `[0]`.
+- Step 3: dequeue `0` → `netCourses = 3`. No outgoing edges. Queue: `[]`.
 
----
+`netCourses (3) == numCourses (3)` → return `true`. ✓
 
 ## 2. Optimal Approach
 
-**DFS cycle detection with three states** — exactly what you implemented. This is the canonical optimal solution.
+Kahn's algorithm is already the optimal approach for this problem — the user's solution matches it. The idea: a valid course order exists if and only if the prerequisite graph is a DAG (no cycle). Process courses in BFS order starting from those with no prerequisites (in-degree 0); each time a course is "completed," remove its outgoing edges by decrementing the in-degree of its dependents. If every course eventually reaches in-degree 0 and gets processed, there's no cycle blocking any of them; if some courses never reach in-degree 0 (because they're stuck waiting on each other in a cycle), they're never processed and the final count falls short.
 
-Build a directed adjacency list from the prerequisites. For each unvisited node, run DFS. Use three states per node:
-- Unvisited (`0`) — not yet explored.
-- Visiting (`1`) — currently on the DFS call stack.
-- Visited (`2`) — fully explored, confirmed cycle-free.
+**Time complexity:** O(V + E) — each vertex is enqueued/dequeued once, each edge is traversed exactly once when decrementing in-degrees.
 
-If DFS reaches a node in the *Visiting* state, a back edge exists — a cycle — return `false`. After fully exploring a node, mark it *Visited* so it is never re-processed.
-
-**Time:** O(V + E) — each node and edge processed once.
-**Space:** O(V + E) — adjacency list + state array + call stack.
+**Space complexity:** O(V + E) — adjacency list plus in-degree array and queue.
 
 ```java
 public boolean canFinish(int numCourses, int[][] prerequisites) {
-    List<List<Integer>> adj = new ArrayList<>();
-    for (int i = 0; i < numCourses; i++) adj.add(new ArrayList<>());
-    for (int[] p : prerequisites) adj.get(p[0]).add(p[1]);
+    Map<Integer, List<Integer>> graph = new HashMap<>();
+    int[] inDegree = new int[numCourses];
 
-    int[] state = new int[numCourses]; // 0=unvisited, 1=visiting, 2=visited
-
-    for (int i = 0; i < numCourses; i++) {
-        if (state[i] == 0 && hasCycle(adj, state, i)) return false;
+    for (int[] edge : prerequisites) {
+        int course = edge[0], prereq = edge[1];
+        graph.computeIfAbsent(prereq, k -> new ArrayList<>()).add(course);
+        inDegree[course]++;
     }
+
+    Deque<Integer> queue = new ArrayDeque<>();
+    for (int course = 0; course < numCourses; course++) {
+        if (inDegree[course] == 0) queue.offer(course);
+    }
+
+    int completed = 0;
+    while (!queue.isEmpty()) {
+        int course = queue.poll();
+        completed++;
+
+        for (int next : graph.getOrDefault(course, List.of())) {
+            if (--inDegree[next] == 0) queue.offer(next);
+        }
+    }
+
+    return completed == numCourses;
+}
+```
+
+**Algorithm trace:** Identical to the trace above — this is the same algorithm the user implemented.
+
+## 3. Alternative Approaches
+
+### DFS with three-color cycle detection
+
+Model each course as a node in a directed graph (edge `b → a` for prerequisite `[a, b]`). Run DFS from every unvisited node, marking nodes `visiting` (on the current recursion stack) and `visited` (fully processed, safe). If DFS reaches a node already marked `visiting`, a cycle exists. This is the approach hinted at in this problem's `README.md` and is what an earlier attempt at this exercise used.
+
+**Time complexity:** O(V + E) — every node and edge is visited once across all DFS calls.
+
+**Space complexity:** O(V + E) — adjacency list plus the recursion call stack, which can grow to O(V) in the worst case (a single long chain).
+
+**When to use:** Equally valid to Kahn's algorithm — some interviewers may prefer seeing explicit cycle detection via DFS since it generalizes more directly to "find the cycle" or "find all cycles" follow-ups. The main tradeoff is recursion depth risk on very large inputs (stack overflow), whereas Kahn's algorithm is iterative and avoids that risk.
+
+```java
+public boolean canFinish(int numCourses, int[][] prerequisites) {
+    Map<Integer, List<Integer>> graph = new HashMap<>();
+    for (int[] edge : prerequisites) {
+        graph.computeIfAbsent(edge[1], k -> new ArrayList<>()).add(edge[0]);
+    }
+
+    int[] state = new int[numCourses]; // 0 = unvisited, 1 = visiting, 2 = visited
+
+    for (int course = 0; course < numCourses; course++) {
+        if (state[course] == 0 && hasCycle(graph, state, course)) {
+            return false;
+        }
+    }
+
     return true;
 }
 
-private boolean hasCycle(List<List<Integer>> adj, int[] state, int node) {
-    state[node] = 1;
-    for (int neighbor : adj.get(node)) {
-        if (state[neighbor] == 1) return true;
-        if (state[neighbor] == 0 && hasCycle(adj, state, neighbor)) return true;
+private boolean hasCycle(Map<Integer, List<Integer>> graph, int[] state, int course) {
+    state[course] = 1;
+
+    for (int next : graph.getOrDefault(course, List.of())) {
+        if (state[next] == 1) return true;
+        if (state[next] == 0 && hasCycle(graph, state, next)) return true;
     }
-    state[node] = 2;
+
+    state[course] = 2;
     return false;
 }
 ```
 
-**Algorithm trace** — Input: `numCourses = 2, prerequisites = [[1,0],[0,1]]` (cycle)
+**Algorithm trace** (Example 2: `numCourses = 2, prerequisites = [[1,0],[0,1]]`, expected `false`)
 
-Graph: 0→1, 1→0
+Graph: `0 → 1`, `1 → 0`.
 
-```mermaid
-graph LR
-    A((0)) -->|"step 1 — mark visiting"| B((1))
-    B -->|"step 2 — mark visiting"| A
-    A -->|"step 3 — already visiting! cycle"| A
-```
+| Depth | Call | State before | Returns |
+|---|---|---|---|
+| 0 | `hasCycle(0)` | `state[0]=1` | checks neighbor `1` |
+| 1 | `hasCycle(1)` | `state[1]=1` | checks neighbor `0`, `state[0]==1` → cycle found |
+| 1 | `hasCycle(1)` returns | — | `true` |
+| 0 | `hasCycle(0)` returns | — | `true` |
+→ `canFinish` returns `false`. ✓
 
-→ back edge detected → return `false`
+### Brute force: try all orderings
 
----
+Generate every permutation of the `numCourses` courses and check whether any one respects all prerequisite constraints (for every edge `[a, b]`, `b` appears before `a` in the permutation).
 
-## 3. Alternative Approaches
+**Time complexity:** O(V! × E) — factorial orderings, each checked against every edge.
 
-### Topological Sort — Kahn's Algorithm (BFS / in-degree)
+**Space complexity:** O(V) for each permutation being built.
 
-Build the adjacency list and compute each node's in-degree. Enqueue all nodes with in-degree 0. Process the queue: for each dequeued node, decrement the in-degree of its neighbors; enqueue any that reach 0. If the total count of processed nodes equals `numCourses`, the graph is acyclic.
-
-**Time:** O(V + E) — same as DFS.
-**Space:** O(V + E) — adjacency list + in-degree array + queue.
-**When to use:** Preferred when you want an iterative solution with no recursion depth concern, or when you need the actual topological order (not just cycle detection).
-
-```java
-public boolean canFinish(int numCourses, int[][] prerequisites) {
-    List<List<Integer>> graph = new ArrayList<>();
-    int[] indeg = new int[numCourses];
-    for (int i = 0; i < numCourses; i++) graph.add(new ArrayList<>());
-    for (int[] p : prerequisites) {
-        graph.get(p[1]).add(p[0]);
-        indeg[p[0]]++;
-    }
-
-    Queue<Integer> queue = new LinkedList<>();
-    for (int i = 0; i < numCourses; i++) if (indeg[i] == 0) queue.offer(i);
-
-    int processed = 0;
-    while (!queue.isEmpty()) {
-        int node = queue.poll();
-        processed++;
-        for (int next : graph.get(node)) {
-            if (--indeg[next] == 0) queue.offer(next);
-        }
-    }
-    return processed == numCourses;
-}
-```
-
-**Algorithm trace** — Input: `numCourses = 4, prerequisites = [[1,0],[2,1],[3,2]]`
-
-inDegree: `[0, 1, 1, 1]`. Initial queue: `[0]`
-
-| step | dequeue | processed | neighbors | inDegree after | enqueue |
-|------|---------|-----------|-----------|----------------|---------|
-| 1 | 0 | 1 | {1} → indeg[1]=0 | [0,0,1,1] | 1 |
-| 2 | 1 | 2 | {2} → indeg[2]=0 | [0,0,0,1] | 2 |
-| 3 | 2 | 3 | {3} → indeg[3]=0 | [0,0,0,0] | 3 |
-| 4 | 3 | 4 | {} | | |
-
-processed=4 == numCourses=4 → return `true`
-
----
-
-### Brute-Force DFS (no visited memoization)
-
-Run DFS from every node, tracking only the current path. No "fully visited" state — re-explore nodes on every new DFS call.
-
-**Time:** O(V · (V + E)) — each node re-explored for every starting point.
-**Space:** O(V) — path tracking only.
-**When to use:** Only acceptable in interviews under extreme time pressure with very small inputs; never in production.
-
-**Algorithm trace** — Input: `numCourses = 3, prerequisites = [[0,1],[1,2],[2,0]]` (cycle)
-
-| start | DFS path | cycle found? |
-|-------|----------|-------------|
-| 0 | 0 → 1 → 2 → 0 (0 already in path) | **Yes** → return false |
+**When to use:** Never in practice — only mentioned as the naive baseline. It's intractable beyond a handful of courses (`numCourses` up to 2000 per this problem's constraints makes this approach unusable), but it's a useful way to explain *why* graph-based cycle detection is needed if the interviewer asks you to start from first principles.
