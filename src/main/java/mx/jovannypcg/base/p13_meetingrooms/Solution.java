@@ -11,26 +11,20 @@ import java.util.Comparator;
  */
 public class Solution {
 
-    public boolean canAttendMeetings(int[][] intervals) {
-        if (intervals == null || intervals.length < 2) {
-            return true;
-        }
+    public boolean canAttendMeetings(int[][] meetings) {
+        if (meetings == null || meetings.length == 0) return true;
 
-        Comparator<int[]> intervalStartComparator = (a, b) -> {
+        int n = meetings.length;
+
+        Comparator<int[]> meetingComparator = (a, b) -> {
             return Integer.compare(a[0], b[0]);
         };
 
-        Arrays.sort(intervals, intervalStartComparator);
+        Arrays.sort(meetings, meetingComparator);
 
-        for (int i = 1; i < intervals.length; i++) {
-            int[] current = intervals[i];
-            int[] previous = intervals[i - 1];
+        int idx = 1;
+        while (idx < n && meetings[idx][0] > meetings[idx - 1][1]) idx++;
 
-            if (current[0] <= previous[1]) { // Overlap detected
-                return false;
-            }
-        }
-
-        return true;
+        return idx == n;
     }
 }
