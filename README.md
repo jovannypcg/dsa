@@ -197,6 +197,7 @@ mvn test -Dtest="SolutionTest" -pl .
 | 80 | [Spiral Matrix II](src/main/java/mx/jovannypcg/base/p80_spiralmatrixii) | Arrays & Hashing | ✅ |
 | 81 | [Topological Sort (Kahn's Algorithm)](src/main/java/mx/jovannypcg/base/p81_topologicalsort) | Topological Sort | ✅ |
 | 82 | [Alien Dictionary](src/main/java/mx/jovannypcg/base/p82_aliendictionary) | Graphs | ✅ |
+| 83 | [Meeting Rooms II](src/main/java/mx/jovannypcg/base/p83_meetingrooms2) | Heap / Priority Queue | ✅ |
 
 ✅ = solved independently · 💡 = viewed solution · 🔄 = in progress
 
